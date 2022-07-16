@@ -3,39 +3,35 @@ using Zenject;
 
 namespace Project.Scripts
 {
-    public class LevelSpawner : IInitializable
+    public class LevelSpawner
     {
         private int _levelId;
         private readonly LevelInfoService _levelInfoService;
         private readonly LevelsContainer _levelsContainer;
         private Level _currentLevel;
 
-        public LevelSpawner(LevelInfoService levelInfoService, LevelsContainer levelsContainer, int levelId)
+        public LevelSpawner(LevelInfoService levelInfoService, LevelsContainer levelsContainer)
         {
-            _levelId = levelId;
             _levelsContainer = levelsContainer;
             _levelInfoService = levelInfoService; 
         }
 
-        public int LevelId => _levelId;
-
-        public void Initialize()
+        public Level LoadLevelById(int id)
         {
-            LoadLevelById(_levelId);
-        }
+            Level levelPrefab = _levelsContainer.GetLevel(id);
+            Level loadedLevel = Object.Instantiate(levelPrefab);
 
-        public void LoadLevelById(int id)
-        {
-            Level level = _levelsContainer.GetLevel(id);
-            Level instance = Object.Instantiate(level);
-
+            Debug.Log("load");  
             if (_currentLevel != null)
             {
                 UnloadCurrentLevel();
             }
-            _currentLevel = instance;
+
+            _currentLevel = loadedLevel;
             _levelId = id;
-            _levelInfoService.OnLevelSpawned(instance);
+            _levelInfoService.OnLevelSpawned(loadedLevel);
+
+            return loadedLevel;
         }
 
         public void UnloadCurrentLevel()

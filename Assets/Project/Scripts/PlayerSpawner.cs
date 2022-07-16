@@ -7,17 +7,16 @@ namespace Project.Scripts
         private Player _player;
         private PlayerFactory _playerFactory;
 
-        public PlayerSpawner(Player player, PlayerFactory playerFactory)
+        public PlayerSpawner(PlayerFactory playerFactory)
         {
             _playerFactory = playerFactory;
-            _player = player;
         }
 
         public Player Spawn(Vector3 pos)
         {
             if (_player != null) return _player;
 
-           // Player player = _playerFactory.Create();
+            _player = _playerFactory.Create();
 
             return _player;
         }

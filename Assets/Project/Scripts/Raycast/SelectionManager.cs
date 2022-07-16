@@ -17,17 +17,17 @@ namespace Assets.Scripts._3D.Selecting
 
         private ICustomSelectable _selection;
 
-        [Inject]
+        /*[Inject]
         private void Init(IRayProvider rayProvider, ISelector selector, ISelectionResponse selectionResponse)
         {
             _rayProvider = rayProvider;
             _selector = selector;
             _selectionResponse = selectionResponse;
-        }
+        }*/
 
         private void Update()
         {
-            HandleSelection();
+           // HandleSelection();
         }
 
         private void HandleSelection()

@@ -13,12 +13,24 @@ namespace Project.Scripts
         {
             _playerSpawner = playerSpawner;
         }
-
+        
         public void SpawnPlayer()
         {
             if (_player != null) return;
 
             _player = _playerSpawner.Spawn(Vector3.zero);
+
+            HidePlayer();
+        }
+
+        public void HidePlayer()
+        {
+            _player.gameObject.SetActive(false);
+        }
+
+        public void ShowPlayer()
+        {
+            _player.gameObject.SetActive(true);
         }
     }
 }

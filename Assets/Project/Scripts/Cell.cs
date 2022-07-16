@@ -4,8 +4,13 @@ namespace Project.Scripts
 {
     public class Cell : MonoBehaviour
     {
-        public CellData Data;
+        [SerializeField] private Transform _pivot;
+        [SerializeField] private CellView _cellView;
 
+        public CellView CellView => _cellView;
+        public Transform Pivot => _pivot;
+
+        public CellData Data;
 
         private void Awake()
         {
@@ -19,5 +24,6 @@ namespace Project.Scripts
     public class CellData
     {
         public int ID { get; set; } = -1;
+        public IPlayerMovement PlayerMovement { get; set; }
     }
 }

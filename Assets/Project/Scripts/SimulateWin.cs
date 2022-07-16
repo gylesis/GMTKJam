@@ -12,7 +12,7 @@ namespace Project.Scripts
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                _levelAdvancer.TryAdvanceLevel();
+                _levelAdvancer.GoNextLevel();
             }
         }
     }

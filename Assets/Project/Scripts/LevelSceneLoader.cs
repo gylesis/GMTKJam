@@ -1,30 +1,21 @@
-using Project.Scripts;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Project.Scripts
 {
-    public class LevelSceneLoader
+    public class LevelSceneLoader : IInitializable
     {
-        private const string GameplaySceneName = "Main";
+        private readonly SessionObserver _sessionObserver;
+        private LevelAdvancer _levelAdvancer;
 
-        [Inject]
-        private LevelsContainer _levelsContainer;
-        readonly ZenjectSceneLoader _sceneLoader;
-        public LevelSceneLoader(ZenjectSceneLoader sceneLoader)
+        public LevelSceneLoader(SessionObserver sessionObserver, LevelAdvancer levelAdvancer)
         {
-            _sceneLoader = sceneLoader;
+            _levelAdvancer = levelAdvancer;
+            _sessionObserver = sessionObserver;
         }
 
-        public void LoadLevelById(int id)
+        public void Initialize()
         {
-            _sceneLoader.LoadSceneAsync(GameplaySceneName, LoadSceneMode.Single, (container) =>
-            {
-                container.BindInstance(id).WhenInjectedInto<MainInstaller>();
-                container.BindInstance(_levelsContainer).WhenInjectedInto<MainInstaller>();
-            });
+            _levelAdvancer.StartLevel(_sessionObserver.Level);
         }
-
-
     }
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Project.Scripts
 {
-    public class StraightMovement : IPlayerMovement
+    public class LeftMovement : IPlayerMovement
     {
         public event Action<Cell> Moved;
 
         private readonly PlayerFacade _playerFacade;
         private readonly LevelInfoService _levelInfoService;
 
-        public StraightMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService)
+        public LeftMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService)
         {
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
@@ -19,7 +19,7 @@ namespace Project.Scripts
 
         public async void Move()
         {
-            Cell cellToMove = _levelInfoService.GetForwardCell();
+            Cell cellToMove = _levelInfoService.GetLeftCell();
 
             var movePos = cellToMove.Pivot.position + (Vector3.up * (_playerFacade.Transform.localScale.x / 2));
 
@@ -30,14 +30,4 @@ namespace Project.Scripts
             Moved?.Invoke(cell);
         }
     }
-
-
-    public enum MoveSide
-    {
-        Left,
-        Right,
-        Forward,
-        Back
-    }
-    
 }
