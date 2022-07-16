@@ -3,5 +3,6 @@
     public class PlayerCubicSlotData
     {
         public IPlayerMovement Movement;
+        public MoveSide MoveSide;
     }
 }

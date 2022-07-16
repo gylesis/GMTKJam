@@ -26,7 +26,6 @@ namespace Project.Scripts
         {
             player.transform.position = _startCell.Pivot.position + (Vector3.up * (player.transform.localScale.x / 2));
         }
-        
-        
     }
+    
 }

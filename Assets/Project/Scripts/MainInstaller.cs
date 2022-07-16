@@ -20,6 +20,8 @@ namespace Project.Scripts
         {
             //Application.targetFrameRate = 60;
 
+            Container.BindInterfacesAndSelfTo<PlayerDestinationTracker>().AsSingle();
+            
             Container.Bind<StaticData>().FromInstance(_staticData).AsSingle();
 
             Container.BindFactory<Player, PlayerFactory>().FromComponentInNewPrefab(_player).AsSingle();
@@ -40,8 +42,8 @@ namespace Project.Scripts
             Container.BindInterfacesAndSelfTo<PlayerMovementService>().AsSingle();
 
             Container.Bind<PlayerMovementContainer>().AsSingle().NonLazy();
-            Container.Bind<IPlayerMovement>().To<StraightMovement>().AsTransient();
-            Container.Bind<IPlayerMovement>().To<LeftMovement>().AsTransient();
+            Container.Bind<IPlayerMovement>().To<FourDirectionMovement>().AsTransient();
+            Container.Bind<IPlayerMovement>().To<JumpMovement>().AsTransient();
 
             Container.Bind<IRayProvider>().To<MousePositionRayProvider>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ISelector>().To<RayCastBasedSelector>().FromComponentInHierarchy().AsSingle();

@@ -22,6 +22,7 @@ namespace Project.Scripts
             Level loadedLevel = Object.Instantiate(levelPrefab);
 
             Debug.Log("load");  
+            
             if (_currentLevel != null)
             {
                 UnloadCurrentLevel();

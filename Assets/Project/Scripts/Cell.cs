@@ -4,8 +4,8 @@ namespace Project.Scripts
 {
     public class Cell : MonoBehaviour
     {
-        [SerializeField] private Transform _pivot;
-        [SerializeField] private CellView _cellView;
+        [SerializeField] protected Transform _pivot;
+        [SerializeField] protected CellView _cellView;
 
         public CellView CellView => _cellView;
         public Transform Pivot => _pivot;

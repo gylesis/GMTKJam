@@ -56,23 +56,16 @@ namespace Project.Scripts
             }
         }
 
-        public Cell GetForwardCell()
+        public Cell GetCellByDirection(Vector2 direction)
         {
-            var vector2 = new Vector2(_playerFacade.Transform.localPosition.x, _playerFacade.Transform.localPosition.z);
+            var pos = new Vector2(_playerFacade.Transform.localPosition.x, _playerFacade.Transform.localPosition.z);
 
-            vector2.y += 1;
+            pos.y += direction.y;
+            pos.x += direction.x;
             
-            return _positions[vector2];
+            return _positions[pos];
         }
-
-        public Cell GetLeftCell()
-        {
-            var vector2 = new Vector2(_playerFacade.Transform.localPosition.x, _playerFacade.Transform.localPosition.z);
-
-            vector2.x -= 1;
-            
-            return _positions[vector2];
-        }
+        
         
         public Cell GetPlayerBottomCell()
         {

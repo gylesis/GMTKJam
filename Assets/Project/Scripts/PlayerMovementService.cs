@@ -20,6 +20,4 @@ namespace Project.Scripts
             }
         }
     }
-
-    
 }
