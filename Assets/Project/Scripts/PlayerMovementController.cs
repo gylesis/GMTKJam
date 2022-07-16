@@ -117,8 +117,8 @@ namespace Project.Scripts
 
             //PlayerCubicSlot playerCubicSlot = _playerFacade.GetCurrentSticker();
             //_playerMovement = playerCubicSlot.SlotData.Movement;
-
-            // _playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
+            
+           // _playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
         }
     }
 }

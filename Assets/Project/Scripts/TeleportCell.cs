@@ -2,12 +2,12 @@
 
 namespace Project.Scripts
 {
-    public class JumpingCell : Cell
+    public class TeleportCell : Cell
     {
-        [SerializeField] private Cell _jumpCell;
+        [SerializeField] private Cell _targetCell;
 
-        public Cell JumpCell => _jumpCell;
-
+        public Cell TargetCell => _targetCell;
+        
         private void Reset()
         {
             var tryGetComponent = TryGetComponent<Cell>(out var cell);
