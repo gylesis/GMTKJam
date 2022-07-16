@@ -9,7 +9,7 @@ public class SelectedStickerObserver
 {
     private PlayerMovementContainer _movementContainer;
     private StickerPrefabContainer _stickerPrefabContainer;
-    private PlayerCubicSlot _currentSticker;
+    private GameObject _currentSticker;
     private int _prevSide = -1;
 
     [Inject]
@@ -21,7 +21,7 @@ public class SelectedStickerObserver
         _index = 0;
     }
 
-    public PlayerCubicSlot CurrentSticker => _currentSticker;
+    public GameObject CurrentSticker => _currentSticker;
 
     private int _index;
 

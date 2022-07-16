@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: StickerPrefab Container
   m_EditorClassIdentifier: 
   _slots:
-  - {fileID: -733902363898102768, guid: 9c851b53ad3a9834ea72178bd65840c0, type: 3}
-  - {fileID: 461514687370789746, guid: ab0151d719a873c48b61223b256ff76b, type: 3}
+  - {fileID: 1767611728893654832, guid: 9c851b53ad3a9834ea72178bd65840c0, type: 3}
+  - {fileID: 7723909863764461650, guid: ab0151d719a873c48b61223b256ff76b, type: 3}

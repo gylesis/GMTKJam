@@ -24,6 +24,7 @@ namespace Project.Scripts.Raycast
 
         public void Interact()
         {
+            
             _selectedStickerObserver.TryCycleThroughStickers(_id.GetId());
             _playerCubicSlotContainer.SetSlot(_id.GetId());
         }

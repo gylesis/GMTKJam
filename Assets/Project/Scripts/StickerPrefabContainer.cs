@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class StickerPrefabContainer : ScriptableObject
 {
-    [SerializeField]private PlayerCubicSlot[] _slots;
+    [SerializeField]private GameObject[] _slots;
 
-    public PlayerCubicSlot[] Slots => _slots;
+    public GameObject[] Slots => _slots;
 }
