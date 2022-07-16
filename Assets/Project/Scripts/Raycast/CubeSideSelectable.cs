@@ -7,14 +7,14 @@ namespace Project.Scripts.Raycast
 {
     public class CubeSideSelectable : MonoBehaviour, ICustomSelectable
     {
-        private PlayerCubicSlotContainer _playerCubicSlotContainer;
+        private UICubicSlotContainer _uiCubicSlotContainer;
         private SelectedStickerObserver _selectedStickerObserver;
         private SideId _id;
 
         [Inject]
-        public void Init(PlayerCubicSlotContainer playerCubicSlotContainer, SelectedStickerObserver selectedStickerObserver)
+        public void Init(UICubicSlotContainer uiCubicSlotContainer, SelectedStickerObserver selectedStickerObserver)
         {
-            _playerCubicSlotContainer = playerCubicSlotContainer;
+            _uiCubicSlotContainer = uiCubicSlotContainer;
             _selectedStickerObserver = selectedStickerObserver;
             _id = GetComponent<SideId>();
         }
@@ -26,7 +26,7 @@ namespace Project.Scripts.Raycast
         {
             
             _selectedStickerObserver.TryCycleThroughStickers(_id.GetId());
-            _playerCubicSlotContainer.SetSlot(_id.GetId());
+            _uiCubicSlotContainer.SetSlot(_id.GetId());
         }
     }
 }

@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Project.Scripts;
 using UnityEngine;
 
 public class StickersVisualizer : MonoBehaviour
 {
-    [SerializeField] private Transform _cube;
 
-    public GameObject Create(GameObject sticker, Vector3 up)
+    public Sticker Create(Sticker sticker, CubeSide side, Transform root)
     {
-        var clone = Instantiate(sticker, _cube);
-        clone.transform.rotation = Quaternion.LookRotation(up);
+        if (sticker == null) return null;
+        var clone = Instantiate(sticker, root);
+
+        OrientationService.SetOrientationFromSide(side, clone.transform);
+
         return clone;
     }
 

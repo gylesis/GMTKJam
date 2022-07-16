@@ -66,8 +66,11 @@ public class CubeRotator : MonoBehaviour
         //Vector3 up = Vector3.up;
 
         transform.Rotate(up, rotationY, Space.World);
-        transform.Rotate(right, rotationX, Space.World);
+        //transform.Rotate(right, rotationX, Space.World);
         //transform.rotation = Quaternion.AngleAxis(rotationY, right) * transform.rotation;
+        Vector3 euler = transform.eulerAngles;
+        euler += new Vector3(0, -rotationX, 0);
+        transform.eulerAngles = euler;
     }
 
     public void OnEndDrag()

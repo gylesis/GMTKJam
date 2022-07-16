@@ -7,4 +7,14 @@
         Forward,
         Back
     }
+
+    public enum CubeSide
+    {
+        X,
+        NegX,
+        Y,
+        NegY,
+        Z,
+        NegZ,
+    }
 }

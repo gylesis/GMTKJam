@@ -39,6 +39,11 @@ namespace Project.Scripts
 
             return null;
         }
+
+        public void SetPlayerSlots(PlayerCubicSlot[] slots)
+        {
+            _player.Slots = slots;
+        }
         
         public void HidePlayer()
         {

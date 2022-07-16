@@ -34,7 +34,7 @@ namespace Project.Scripts
 
             _playerDestinationTracker.CellChanged += OnPlayerCellChanged;
 
-            // PlayerCubicSlotData playerCubicSlot = _playerFacade.GetCurrentSticker();
+            PlayerCubicSlotData playerCubicSlot = _playerFacade.GetCurrentSticker();
             //IPlayerMovement playerMovement = playerCubicSlot.Movement;
 
             IPlayerMovement playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
@@ -44,7 +44,7 @@ namespace Project.Scripts
 
             if (playerMovement is FourDirectionMovement)
             {
-                MoveSide moveSide = MoveSide.Forward;
+                MoveSide moveSide = playerCubicSlot.MoveSide;
 
                 Vector2 moveDirection;
 
@@ -117,8 +117,8 @@ namespace Project.Scripts
 
             //PlayerCubicSlot playerCubicSlot = _playerFacade.GetCurrentSticker();
             //_playerMovement = playerCubicSlot.SlotData.Movement;
-            
-           // _playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
+
+            // _playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
         }
     }
 }

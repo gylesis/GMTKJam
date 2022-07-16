@@ -49,12 +49,13 @@ namespace Project.Scripts
             Container.Bind<ISelector>().To<RayCastBasedSelector>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ISelectionResponse>().To<InteractionResponce>().AsSingle();
 
-            Container.Bind<PlayerCubicSlotContainer>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<UICubicSlotContainer>().FromComponentInHierarchy().AsSingle();
             Container.Bind<StickersVisualizer>().FromComponentInHierarchy().AsSingle();
             Container.Bind<SelectedStickerObserver>().AsSingle();
             Container.BindInstance(_stickerPrefabContainer).AsSingle();
 
-            
+            Container.Bind<PlayerCubicSlotsBuilder>().AsSingle();
+
         }
     }
 }

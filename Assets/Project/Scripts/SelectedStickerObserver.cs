@@ -9,8 +9,9 @@ public class SelectedStickerObserver
 {
     private PlayerMovementContainer _movementContainer;
     private StickerPrefabContainer _stickerPrefabContainer;
-    private GameObject _currentSticker;
-    private int _prevSide = -1;
+    private Sticker _currentSticker;
+    private CubeSide _prevSide;
+    private bool _placed;
 
     [Inject]
     public SelectedStickerObserver(PlayerMovementContainer movementContainer, StickerPrefabContainer stickerPrefabContainer)
@@ -21,13 +22,18 @@ public class SelectedStickerObserver
         _index = 0;
     }
 
-    public GameObject CurrentSticker => _currentSticker;
+    public Sticker CurrentSticker => _currentSticker;
 
     private int _index;
 
-    public void TryCycleThroughStickers(int side)
+    public void TryCycleThroughStickers(CubeSide side)
     {
-        if (side != _prevSide)
+        if (!_placed)
+        {
+            _index = 0;
+            _placed = true;
+        }
+        else if (side != _prevSide)
         {
             _index = 0;
         }

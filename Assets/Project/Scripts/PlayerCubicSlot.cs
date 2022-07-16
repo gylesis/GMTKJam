@@ -5,6 +5,6 @@ namespace Project.Scripts
     public class PlayerCubicSlot : MonoBehaviour
     {
         public PlayerCubicSlotData SlotData;
-        public GameObject Sticker;  
+        public Sticker Sticker;  
     }
 }

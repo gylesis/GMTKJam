@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Project.Scripts;
 using UnityEngine;
 
 public class SideId : MonoBehaviour
 {
-    public int GetId()
+    [SerializeField] private CubeSide side;
+    public CubeSide GetId()
     {
-        return transform.GetSiblingIndex();
+        return side;
     }
 }
