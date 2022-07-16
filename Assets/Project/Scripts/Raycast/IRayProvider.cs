@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts._3D.Selecting
+namespace Project.Scripts.Raycast
 {
     public interface IRayProvider
     {

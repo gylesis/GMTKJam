@@ -18,7 +18,7 @@ namespace Project.Scripts
 
         public void StartLevel(int id)
         {
-            TryAdvanceLevel(id);
+            //TryAdvanceLevel(id);
         }
                 
         private void TryAdvanceLevel(int levelId)       

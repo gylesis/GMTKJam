@@ -60,11 +60,14 @@ public class CubeRotator : MonoBehaviour
 
     private void Rotate(float rotationX, float rotationY)
     {
-        Vector3 right = Vector3.Cross(camera.transform.up, transform.position - camera.transform.position);
+        Vector3 right = Vector3.Cross(camera.transform.right, transform.position - camera.transform.position);
+        //Vector3 right = Vector3.right;
         Vector3 up = Vector3.Cross(transform.position - camera.transform.position, right);
+        //Vector3 up = Vector3.up;
 
-        transform.rotation = Quaternion.AngleAxis(-rotationX, up) * transform.rotation;
-        transform.rotation = Quaternion.AngleAxis(rotationY, right) * transform.rotation;
+        transform.Rotate(up, rotationY, Space.World);
+        transform.Rotate(right, rotationX, Space.World);
+        //transform.rotation = Quaternion.AngleAxis(rotationY, right) * transform.rotation;
     }
 
     public void OnEndDrag()

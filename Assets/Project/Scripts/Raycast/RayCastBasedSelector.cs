@@ -1,21 +1,25 @@
+using Project.Scripts.Raycast;
+using Project.Scripts.Raycast.Selecting;
 using UnityEngine;
+using Zenject;
 
-namespace Assets.Scripts._3D.Selecting
+namespace Project.Scripts.Raycast
 {
     public class RayCastBasedSelector : MonoBehaviour, ISelector
     {
-        [SerializeField] private float length;
+        [Inject]
+        private StaticData _staticData;
+
         private ICustomSelectable selection;
         public void Check(Ray ray)
         {
             selection = null;
-            if (!Physics.Raycast(ray, out var hit, length)) return;
-
+            if (!Physics.Raycast(ray, out var hit, Mathf.Infinity, _staticData.LayersForCubeSidesCheck)) return;
+           
             if (hit.transform.TryGetComponent(out ICustomSelectable potentialSelection))
             {
                 selection = potentialSelection;
             }
-
         }
 
         public ICustomSelectable GetSelection()

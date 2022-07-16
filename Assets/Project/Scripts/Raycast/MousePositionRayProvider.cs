@@ -1,15 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts._3D.Selecting;
+
+using Project.Scripts.Raycast.Selecting;
 using UnityEngine;
 
-public class MousePositionRayProvider : IRayProvider
+namespace Project.Scripts.Raycast
 {
-    [SerializeField] private Camera camera;
-    public Ray CreateRay()
+    public class MousePositionRayProvider : MonoBehaviour, IRayProvider
     {
-        Vector3 screenPosition = Input.mousePosition;
-        screenPosition.z = camera.nearClipPlane;
-        return camera.ScreenPointToRay(screenPosition);
+        [SerializeField] private Camera camera;
+        public Ray CreateRay()
+        {
+            Vector3 screenPosition = Input.mousePosition;
+            screenPosition.z = camera.nearClipPlane;
+            return camera.ScreenPointToRay(screenPosition);
+        }
     }
 }

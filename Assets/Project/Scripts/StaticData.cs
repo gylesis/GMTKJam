@@ -6,8 +6,9 @@ namespace Project.Scripts
     public class StaticData : ScriptableObject
     {
         [SerializeField] private LayerMask _layersForCellCheck;
+        [SerializeField] private LayerMask _layersForCubeSidesCheck;
        
         public LayerMask LayersForCellCheck => _layersForCellCheck;
-     
+        public LayerMask LayersForCubeSidesCheck => _layersForCubeSidesCheck;
     }
 }

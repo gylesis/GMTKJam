@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using Project.Scripts.Raycast;
+using Project.Scripts.Raycast.Selecting;
 using UnityEngine;
 
-public class InteractionResponce : MonoBehaviour
+namespace Project.Scripts.Raycast
 {
-    // Start is called before the first frame update
-    void Start()
+    public class InteractionResponce : ISelectionResponse
     {
-        
-    }
+        public void OnSelect(ICustomSelectable selection)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                selection.Interact();
+            }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void OnDeselect(ICustomSelectable selection)
+        {
+            //
+        }
     }
 }
