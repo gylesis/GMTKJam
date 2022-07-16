@@ -14,7 +14,7 @@ namespace Project.Scripts
         {
             _levelId = levelId;
             _levelsContainer = levelsContainer;
-            _levelInfoService = levelInfoService;
+            _levelInfoService = levelInfoService; 
         }
 
         public int LevelId => _levelId;

@@ -1,4 +1,5 @@
-﻿using Project.Scripts;
+﻿using Assets.Scripts._3D.Selecting;
+using Project.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -15,6 +16,8 @@ namespace Project.Scripts
         
         public override void InstallBindings()
         {
+            //Application.targetFrameRate = 60;
+
             Container.BindFactory<Player, PlayerFactory>().FromComponentInNewPrefab(_player).AsSingle();
             Container.Bind<PlayerMovementController>().AsSingle();
             Container.Bind<PlayerFacade>().AsSingle();
@@ -29,6 +32,9 @@ namespace Project.Scripts
 
             Container.BindInstance(_initialSceneId).WhenInjectedInto<LevelSpawner>();
             Container.Bind<LevelAdvancer>().AsSingle();
+
+            Container.Bind<IRayProvider>().To<MousePositionRayProvider>();
+            
         }
     }
 }
