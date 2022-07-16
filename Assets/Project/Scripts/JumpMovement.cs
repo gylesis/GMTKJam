@@ -17,12 +17,10 @@ namespace Project.Scripts
             _playerFacade = playerFacade;
         }
 
-        public async void Move(Cell cellToMove)
+        public async void Move(Cell cellToMove, Vector2 direction)
         {
             var movePos = cellToMove.Pivot.position + (Vector3.up * (_playerFacade.Transform.localScale.x / 2));
 
-            _playerFacade.Transform.DOShakeRotation(1);
-            
             await _playerFacade.Transform.DOMove(movePos, 1).SetEase(Ease.InQuad).AsyncWaitForCompletion();
 
             Cell cell = _levelInfoService.GetPlayerBottomCell();

@@ -21,26 +21,20 @@ namespace Project.Scripts
             _playerMovementContainer = playerMovementContainer;
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
-
-            _playerMovement = playerMovementContainer.GetMovement<FourDirectionMovement>();
         }
 
         public void Move()
         {
             if (_isMoving) return;
-            _isMoving = true;
+            
+            PlayerCubicSlot currentSticker = _playerFacade.GetCurrentSticker();
 
-            _playerDestinationTracker.StartTracking();
-
-            _playerDestinationTracker.CellChanged += OnPlayerCellChanged;
-
-            PlayerCubicSlotData playerCubicSlot = _playerFacade.GetCurrentSticker();
+            Debug.Log(currentSticker ,currentSticker);
+            
+            PlayerCubicSlotData playerCubicSlot = currentSticker.SlotData;
             //IPlayerMovement playerMovement = playerCubicSlot.Movement;
 
             IPlayerMovement playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
-
-            _playerMovement = playerMovement;
-            _playerMovement.Moved += OnPlayerMoved;
 
             if (playerMovement is FourDirectionMovement)
             {
@@ -68,7 +62,13 @@ namespace Project.Scripts
 
                 Cell cell = _levelInfoService.GetCellByDirection(moveDirection);
 
-                playerMovement.Move(cell);
+                if(cell == null)
+                    return;
+                
+                _playerMovement = playerMovement;
+                _playerMovement.Moved += OnPlayerMoved;
+
+                playerMovement.Move(cell, moveDirection);
             }
             else if (playerMovement is JumpMovement)
             {
@@ -76,8 +76,14 @@ namespace Project.Scripts
 
                 Cell jumpCell = cell.JumpCell;
 
-                playerMovement.Move(jumpCell);
+                //playerMovement.Move(jumpCell);
             }
+
+            _isMoving = true;
+
+            _playerDestinationTracker.StartTracking();
+
+            _playerDestinationTracker.CellChanged += OnPlayerCellChanged;
         }
 
         private void OnPlayerCellChanged(Cell cell)
@@ -90,7 +96,7 @@ namespace Project.Scripts
 
                 _playerMovement = playerMovement;
 
-                _playerMovement.Move(jumpingCell.JumpCell);
+               // _playerMovement.Move(jumpingCell.JumpCell);
                 _playerMovement.Moved += OnPlayerMoved;
 
                 _playerMovement = playerMovement;
@@ -117,8 +123,8 @@ namespace Project.Scripts
 
             //PlayerCubicSlot playerCubicSlot = _playerFacade.GetCurrentSticker();
             //_playerMovement = playerCubicSlot.SlotData.Movement;
-            
-           // _playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
+
+            // _playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
         }
     }
 }

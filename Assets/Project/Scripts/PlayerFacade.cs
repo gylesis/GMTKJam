@@ -23,18 +23,20 @@ namespace Project.Scripts
             HidePlayer();
         }
 
-        public PlayerCubicSlotData GetCurrentSticker()
+        public PlayerCubicSlot GetCurrentSticker()
         {
-            Vector3 up = Transform.up;  
+            Vector3 up = Vector3.up;
 
             foreach (PlayerCubicSlot slot in _player.Slots)
             {
-                var signedAngle = Vector3.SignedAngle(up , slot.transform.forward, Vector3.up);
+                Vector3 slotForward = slot.transform.forward;
+                
+                var signedAngle = Vector3.SignedAngle(up , slotForward, Vector3.up);
 
                 var cos = Mathf.Cos(signedAngle);
 
                 if (Mathf.Approximately(cos,1))
-                    return slot.SlotData;
+                    return slot;
             }
 
             return null;

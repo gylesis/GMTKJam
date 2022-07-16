@@ -62,10 +62,12 @@ namespace Project.Scripts
 
             pos.y += direction.y;
             pos.x += direction.x;
+
+            if (_positions.ContainsKey(pos) == false)
+                return null;
             
             return _positions[pos];
         }
-        
         
         public Cell GetPlayerBottomCell()
         {

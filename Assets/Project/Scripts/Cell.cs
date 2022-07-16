@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Project.Scripts
 {
@@ -18,12 +19,16 @@ namespace Project.Scripts
             
             Data.ID = GetHashCode();
         }
-    }
 
+        /*private void OnValidate()
+        {
+            Vector3 transformLocalPosition = transform.localPosition;
 
-    public class CellData
-    {
-        public int ID { get; set; } = -1;
-        public IPlayerMovement PlayerMovement { get; set; }
+            transformLocalPosition.x = Mathf.Round(transformLocalPosition.x);
+            transformLocalPosition.y = Mathf.Round(transformLocalPosition.y);
+            transformLocalPosition.z = Mathf.Round(transformLocalPosition.z);
+
+            transform.localPosition = transformLocalPosition;
+        }*/
     }
 }
