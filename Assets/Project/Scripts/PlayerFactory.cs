@@ -2,5 +2,5 @@
 
 namespace Project.Scripts
 {
-    public class PlayerFactory : PlaceholderFactory<Player>{}
+    public class PlayerFactory : PlaceholderFactory<Player> { }
 }

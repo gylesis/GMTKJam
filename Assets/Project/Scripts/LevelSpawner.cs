@@ -5,7 +5,6 @@ namespace Project.Scripts
 {
     public class LevelSpawner : IInitializable
     {
-
         private int _levelId;
         private readonly LevelInfoService _levelInfoService;
         private readonly LevelsContainer _levelsContainer;
@@ -19,7 +18,6 @@ namespace Project.Scripts
         }
 
         public int LevelId => _levelId;
-
 
         public void Initialize()
         {

@@ -6,6 +6,8 @@
 
         private IPlayerMovement _playerMovement;
 
+        private int _currentCell;
+        
         public PlayerMovementController(PlayerFacade playerFacade)
         {
             _playerFacade = playerFacade;

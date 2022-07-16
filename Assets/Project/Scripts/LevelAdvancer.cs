@@ -1,7 +1,4 @@
-using Project.Scripts;
-using Project.Scripts;
 using UnityEngine;
-using Zenject;
 
 namespace Project.Scripts
 {
@@ -10,7 +7,6 @@ namespace Project.Scripts
         private LevelSpawner _levelSpawner;
         private LevelsContainer _container;
 
-        [Inject]
         public LevelAdvancer(LevelSpawner levelSpawner, LevelsContainer container)
         {
             _levelSpawner = levelSpawner;
