@@ -20,7 +20,7 @@ namespace Project.Scripts
         public async void Move(Cell cellToMove)
         {
             var movePos = cellToMove.Pivot.position + (Vector3.up * (_playerFacade.Transform.localScale.x / 2));
-
+            
             await _playerFacade.Transform.DOMove(movePos, 1).AsyncWaitForCompletion();
 
             Cell cell = _levelInfoService.GetPlayerBottomCell();

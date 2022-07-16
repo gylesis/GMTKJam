@@ -35,6 +35,7 @@ public class UICubicSlotContainer : MonoBehaviour
                     _stickersVisualizer.DestroySticker(slot.Sticker.gameObject);
                 }
 
+                
                 slot.Sticker = _stickersVisualizer.Create(_selectedStickerObserver.CurrentSticker, side, transform);
             }
         }

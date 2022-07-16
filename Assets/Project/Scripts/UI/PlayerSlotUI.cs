@@ -17,8 +17,8 @@ public class PlayerSlotUI : MonoBehaviour
 
     public MoveSide Movement
     {
-        get => _moveSide;
-        set => _moveSide = value;
+        get => _sticker._moveSide;
+        set => _sticker._moveSide = value;
     }
 
     public CubeSide CubeSide => _cubeSide;
