@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Project.Scripts
 {
@@ -6,6 +7,7 @@ namespace Project.Scripts
     public class LevelsContainer : ScriptableObject
     {
         [SerializeField] private Level[] _levels;
+        public int Count => _levels.Length;
 
         public Level GetLevel(int id)
         {
