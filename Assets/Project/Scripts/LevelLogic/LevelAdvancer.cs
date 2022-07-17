@@ -16,11 +16,12 @@ namespace Project.Scripts
         private PlayerCubicSlotsBuilder _playerCubicSlotsBuilder;
         private UICubicSlotContainer _uiCubicSlotContainer;
         private UIContainer _uiContainer;
+        private ButtonRestricter _buttonRestricter;
         public Level CurrentLevel => _levelSpawner.GetCurrentLevel();
 
         public LevelAdvancer(LevelSpawner levelSpawner, SessionObserver sessionObserver, PlayerFacade playerFacade,
             InGameUIController inGameUIController, PlayerCubicSlotsBuilder playerCubicSlotsBuilder,
-            UICubicSlotContainer uiCubicSlotContainer, UIContainer uiContainer)
+            UICubicSlotContainer uiCubicSlotContainer, UIContainer uiContainer, ButtonRestricter buttonRestricter)
         {
             _uiContainer = uiContainer;
             _uiCubicSlotContainer = uiCubicSlotContainer;
@@ -29,6 +30,7 @@ namespace Project.Scripts
             _playerFacade = playerFacade;
             _sessionObserver = sessionObserver;
             _levelSpawner = levelSpawner;
+            _buttonRestricter = buttonRestricter;
         }
 
         public void Initialize()
@@ -75,7 +77,9 @@ namespace Project.Scripts
 
             DOVirtual.DelayedCall(4, () => _inGameUIController.HideText());
 
+
             _playerCubicSlotsBuilder.ClearPrevious();
+            _buttonRestricter.SetStickersPhase();
         }
 
         public void GoNextLevel()

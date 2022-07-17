@@ -7,6 +7,7 @@ namespace Project.Scripts
         private readonly LevelFinishService _levelFinishService;
         private readonly LevelDeathService _levelDeathService;
         private SoundPlayer _soundPlayer;
+        
 
         public DeathFinishHandler(LevelFinishService levelFinishService, LevelDeathService levelDeathService, SoundPlayer soundPlayer)
         {
@@ -19,6 +20,7 @@ namespace Project.Scripts
         {
             _soundPlayer.PlayWinSound();
             _levelFinishService.Finish();
+            
             Debug.Log("WIN!");
         }
 

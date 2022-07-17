@@ -72,6 +72,7 @@ namespace Project.Scripts
             Container.BindInstance(_curvesData);
             Container.Bind<SelectionManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<CubeRotator>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<ButtonRestricter>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

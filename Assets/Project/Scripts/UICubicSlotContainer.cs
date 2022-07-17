@@ -19,6 +19,7 @@ public class UICubicSlotContainer : MonoBehaviour
 
     public List<PlayerSlotUI> Slots => _slots;
 
+
     [Inject]
     public void Init(SelectedStickerObserver selectedStickerObserver, StickersVisualizer stickersVisualizer,
         LevelInfoService levelInfoService, SoundPlayer soundPlayer)
