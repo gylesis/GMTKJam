@@ -18,7 +18,7 @@ public class CameraRotationHandler : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(1))
             {
                 _freeLook.enabled = true;
             }
