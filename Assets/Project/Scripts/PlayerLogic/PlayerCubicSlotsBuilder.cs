@@ -45,6 +45,9 @@ namespace Project.Scripts
 
                 slot.SlotData = new PlayerCubicSlotData();
 
+
+                
+
                 slot.SlotData.MoveSide = playerSlotUi.Movement;
                 if (playerSlotUi.Sticker != null)
                     slot.Sticker = playerSlotUi.Sticker;
@@ -52,6 +55,7 @@ namespace Project.Scripts
                 OrientationService.SetOrientationFromSide(playerSlotUi.CubeSide, slot.transform);
 
                 var sticker = _visualizer.Create(playerSlotUi.Sticker, playerSlotUi.CubeSide, _facade.Transform);
+                slot.SlotData.Forward = sticker.transform.GetChild(0).up;
 
                 _stickers.Add(sticker);
                 _slots.Add(slot);

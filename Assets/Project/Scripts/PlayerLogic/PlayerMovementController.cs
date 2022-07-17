@@ -62,6 +62,12 @@ namespace Project.Scripts
                     throw new ArgumentOutOfRangeException();
             }
 
+            Vector3 temp = currentSticker.SlotData.Forward;
+            temp = _playerFacade.Transform.TransformDirection(temp);
+            Debug.Log(temp);
+            moveDirection = new Vector2(temp.x, temp.z);
+
+
             Cell moveCell = _levelInfoService.GetCellByDirection(moveDirection);
 
             Debug.Log($"Move direction {moveDirection}, moveside {moveSide}, currentSticker {currentSticker}",

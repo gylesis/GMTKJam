@@ -62,6 +62,7 @@ namespace Project.Scripts
             {
                 movingEulersAngle.x = -90;
             }
+            
 
             Vector3 playerEulers = _playerFacade.Transform.rotation.eulerAngles;
             playerEulers += movingEulersAngle;
