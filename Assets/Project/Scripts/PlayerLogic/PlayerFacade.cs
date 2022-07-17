@@ -18,6 +18,7 @@ namespace Project.Scripts
         public void ResetPlayer()
         {
             Transform.rotation = new Quaternion(0,0,0,1);
+            _player.Slots = null;
         }
         
         public void SpawnPlayer()
@@ -36,7 +37,7 @@ namespace Project.Scripts
             foreach (PlayerCubicSlot slot in _player.Slots)
             {
                 Vector3 slotForward = slot.transform.forward;
-                
+
                 var signedAngle = Vector3.SignedAngle(up , slotForward, Vector3.up);
 
                 var cos = Mathf.Cos(signedAngle);
