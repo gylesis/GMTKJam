@@ -9,6 +9,7 @@ namespace Project.Scripts
         private readonly LevelInfoService _levelInfoService;
         private readonly PlayerMovementContainer _playerMovementContainer;
 
+        private bool _canMove;
         private bool _isMoving;
         private IPlayerMovement _playerMovement;
         private Cell _currentCell;
@@ -24,6 +25,12 @@ namespace Project.Scripts
             _playerMovementContainer = playerMovementContainer;
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
+        }
+
+        public bool CanMove
+        {
+            get => _canMove;
+            set => _canMove = value;
         }
 
         public async void Move()
