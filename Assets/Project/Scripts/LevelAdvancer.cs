@@ -21,28 +21,30 @@ namespace Project.Scripts
             TryAdvanceLevel(id);
         }
                 
-        private void TryAdvanceLevel(int levelId)       
+        private bool TryAdvanceLevel(int levelId)       
         {
             if (_levelSpawner.IsLastLevel())
             {
                 Debug.LogWarning("This was the last level!");
-                return;
+                return false;
             }
 
             Level level = _levelSpawner.LoadLevelById(levelId);
-
             level.FinishCellMoved += OnFinishCellMoved;
-            
             _playerFacade.SpawnPlayer();
 
             level.PlacePlayer(_playerFacade.Transform);
-
             _playerFacade.ShowPlayer();
+            return true;
         }
 
         public void GoNextLevel()
         {
-            TryAdvanceLevel(_sessionObserver.Level + 1);
+            var nextLevel = _sessionObserver.Level + 1;
+            if (TryAdvanceLevel(nextLevel))
+            {
+                _sessionObserver.SetLevel(nextLevel);
+            }
         }
         
         private async void OnFinishCellMoved(Level level)

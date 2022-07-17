@@ -15,6 +15,7 @@ namespace Project.Scripts
 
         [SerializeField] private Player _player;
         [SerializeField] private StaticData _staticData;
+        [SerializeField] private AnimationCurvesData _curvesData;
 
         public override void InstallBindings()
         {
@@ -55,6 +56,7 @@ namespace Project.Scripts
             Container.BindInstance(_stickerPrefabContainer).AsSingle();
 
             Container.Bind<PlayerCubicSlotsBuilder>().AsSingle();
+            Container.BindInstance(_curvesData);
 
         }
     }

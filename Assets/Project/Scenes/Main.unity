@@ -211,6 +211,7 @@ MonoBehaviour:
     type: 2}
   _player: {fileID: 3501920917041793094, guid: dfdd0165d23d0394698f085279886b57, type: 3}
   _staticData: {fileID: 11400000, guid: 6a5cf9fd6829bf9468d062fb447e81dd, type: 2}
+  _curvesData: {fileID: 11400000, guid: d476084d7d83d434da8786f01e970329, type: 2}
 --- !u!1 &97960659
 GameObject:
   m_ObjectHideFlags: 0
