@@ -79,6 +79,7 @@ namespace Project.Scripts
             _sessionObserver.SetLevel(nextLevel);
 
             SetLevel(nextLevel);
+
         }
 
         private async void OnFinishCellMoved(Level level)
