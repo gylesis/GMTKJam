@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 9121719324864339708}
   - component: {fileID: 9121719324864339711}
   m_Layer: 0
-  m_Name: Level 2
+  m_Name: Level 2 (No brakes)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
