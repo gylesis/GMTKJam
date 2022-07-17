@@ -31,8 +31,10 @@ public class UICubicSlotContainer : MonoBehaviour
 
         var busySlots = CountBusySlots();
         
+        /*
         if(busySlots >= currentLevel.MaxCellNumber)
             return;
+            */
         
         if (_selectedStickerObserver.CurrentSticker != null)
         {
