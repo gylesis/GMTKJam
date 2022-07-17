@@ -44,7 +44,7 @@ namespace Project.Scripts
             _startPos = _playerFacade.Transform.position;
             _targetPos = movePos;
 
-            //Move();
+            Move();
         }
 
         private void Move()
