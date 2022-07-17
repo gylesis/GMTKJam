@@ -49,7 +49,7 @@ namespace Project.Scripts
         public async void Show()
         {
             _deathText.enabled = true;
-            _deathText.text = "Lol, you died";
+            _deathText.text = "You lost...";
             await _canvasGroup.DOFade(1, 1).AsyncWaitForCompletion();
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;

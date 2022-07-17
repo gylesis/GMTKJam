@@ -23,7 +23,7 @@ namespace Project.Scripts
         public float _speed = 10;
 
         [Tooltip("How high the arc should be, in units")]
-        public float _arcHeight = 5;
+        public float _arcHeight = 20;
 
         public JumpMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService)
         {
@@ -35,7 +35,7 @@ namespace Project.Scripts
         {
             var movePos = cellToMove.Pivot.position + (Vector3.up * (_playerFacade.Transform.localScale.x / 2));
 
-            await _playerFacade.Transform.DOMove(movePos, 1).SetEase(Ease.InQuad).AsyncWaitForCompletion();
+            //await _playerFacade.Transform.DOMove(movePos, 1).SetEase(Ease.InQuad).AsyncWaitForCompletion();
 
             _startPos = _playerFacade.Transform.position;
             _targetPos = movePos;
@@ -50,10 +50,18 @@ namespace Project.Scripts
             float x0 = _startPos.x;
             float x1 = _targetPos.x;
 
+            if (x0 - x1 == 0)
+            {
+                x0 = _startPos.y;
+                x1 = _targetPos.y;
+            }
+
             _disposable = Observable.EveryUpdate().Subscribe((l =>
             {
                 float dist = Mathf.Abs(x1 - x0);
                 float nextX = Mathf.MoveTowards(transform.position.x, x1, _speed * Time.deltaTime);
+                dist += float.Epsilon;
+
                 float baseY = Mathf.Lerp(_startPos.y, _targetPos.y, (nextX - x0) / dist);
                 float arc = _arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * dist * dist);
                 var nextPos = new Vector3(nextX, baseY + arc, transform.position.z);
