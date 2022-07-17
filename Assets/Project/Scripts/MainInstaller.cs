@@ -58,6 +58,7 @@ namespace Project.Scripts
             Container.Bind<PlayerMovementContainer>().AsSingle().NonLazy();
             Container.Bind<IPlayerMovement>().To<FourDirectionMovement>().AsTransient();
             Container.Bind<IPlayerMovement>().To<JumpMovement>().AsTransient();
+            Container.Bind<IPlayerMovement>().To<TeleportMovement>().AsTransient();
 
             Container.Bind<IRayProvider>().To<MousePositionRayProvider>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ISelector>().To<RayCastBasedSelector>().FromComponentInHierarchy().AsSingle();

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using DG.Tweening;
+using UnityEngine;
 
 namespace Project.Scripts
 {
@@ -15,6 +17,13 @@ namespace Project.Scripts
             
         }
 
+        public async Task TryMoveToNonExistCell(Vector2 direction)
+        {
+            var directionToMove = Transform.position + (Vector3)direction;
+
+            await Task.Delay(100);
+        }
+        
         public void ResetPlayer()
         {
             Transform.rotation = new Quaternion(0,0,0,1);

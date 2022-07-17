@@ -13,6 +13,7 @@ namespace Project.Scripts
 
         [SerializeField] private string _levelTitle;
 
+        public int MaxCellNumber => _requiredCellNumber;
         public string LevelTitle => _levelTitle;
         public Cell StartCell => _startCell;
         public Cell FinishCell => _finishCell;

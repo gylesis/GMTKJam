@@ -13,7 +13,7 @@ namespace Project.Scripts
             _playerMovements = playerMovements.ToDictionary(x => x.GetType());
         }
 
-        public IPlayerMovement GetMovement<TMovement>()
+        public IPlayerMovement GetMovement<TMovement>() where  TMovement : IPlayerMovement
         {
             return _playerMovements[typeof(TMovement)];
         }

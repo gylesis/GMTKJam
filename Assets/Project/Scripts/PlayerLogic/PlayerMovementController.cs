@@ -14,6 +14,8 @@ namespace Project.Scripts
         private IPlayerMovement _playerMovement;
         private Cell _currentCell;
         private CellsHandler _cellsHandler;
+        private Vector2 _moveDirection;
+        private Cell _lastTeleportCell;
 
         public PlayerMovementController(PlayerFacade playerFacade, PlayerMovementContainer playerMovementContainer,
             LevelInfoService levelInfoService, PlayerDestinationTracker playerDestinationTracker,
@@ -26,12 +28,14 @@ namespace Project.Scripts
             _playerFacade = playerFacade;
         }
 
-        public void Move()
+        public async void Move()
         {
             if (_isMoving) return;
 
             PlayerCubicSlot currentSticker = _playerFacade.GetCurrentSticker();
-            IPlayerMovement playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
+            //IPlayerMovement playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
+
+            _playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
 
             if (currentSticker == null)
             {
@@ -41,56 +45,36 @@ namespace Project.Scripts
 
             PlayerCubicSlotData playerCubicSlot = currentSticker.SlotData;
             MoveSide moveSide = playerCubicSlot.MoveSide;
-            
-            Vector2 moveDirection;
-
-            switch (moveSide)
-            {
-                case MoveSide.Left:
-                    moveDirection = Vector2.left;
-                    break;
-                case MoveSide.Right:
-                    moveDirection = Vector2.right;
-                    break;
-                case MoveSide.Forward:
-                    moveDirection = Vector2.up;
-                    break;
-                case MoveSide.Back:
-                    moveDirection = Vector2.down;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
 
             Vector3 temp = currentSticker.SlotData.Forward;
             temp = _playerFacade.Transform.TransformDirection(temp);
             Debug.Log(temp);
-            moveDirection = new Vector2(temp.x, temp.z);
+            _moveDirection = new Vector2(temp.x, temp.z);
 
+            Cell moveCell = _levelInfoService.GetCellByDirection(_moveDirection);
 
-            Cell moveCell = _levelInfoService.GetCellByDirection(moveDirection);
-
-            Debug.Log($"Move direction {moveDirection}, moveside {moveSide}, currentSticker {currentSticker}",
+            Debug.Log($"Move direction {_moveDirection}, moveside {moveSide}, currentSticker {currentSticker}",
                 currentSticker);
 
             if (moveCell == null)
             {
+                await _playerFacade.TryMoveToNonExistCell(_moveDirection);
                 _cellsHandler.OnDeath();
+
                 return;
             }
 
-            playerMovement.Moved += OnPlayerMoved;
-            playerMovement.Move(moveCell, moveDirection);
+            _playerMovement.Moved += OnPlayerMoved;
+            _playerMovement.Move(moveCell, _moveDirection);
 
-            _playerMovement = playerMovement;
             _isMoving = true;
-            _playerDestinationTracker.StartTracking();
-            _playerDestinationTracker.CellChanged += OnPlayerCellChanged;
+            //   _playerDestinationTracker.StartTracking();
+            //_playerDestinationTracker.CellChanged += OnPlayerCellChanged;
         }
 
         private void OnPlayerCellChanged(Cell cell)
         {
-            if (cell is JumpingCell jumpingCell)
+            /*if (cell is JumpingCell jumpingCell)
             {
                 _playerMovement.Moved -= OnPlayerMoved;
 
@@ -102,17 +86,17 @@ namespace Project.Scripts
                 _playerMovement.Moved += OnPlayerMoved;
 
                 _playerMovement = playerMovement;
-            }
+            }*/
         }
 
         private void OnPlayerMoved(Cell cell)
         {
             Debug.Log("Player moved");
-            _playerDestinationTracker.StopTracking();
+            //  _playerDestinationTracker.StopTracking();
 
             _currentCell = cell;
 
-            _playerDestinationTracker.CellChanged -= OnPlayerCellChanged;
+            // _playerDestinationTracker.CellChanged -= OnPlayerCellChanged;
             _playerMovement.Moved -= OnPlayerMoved;
 
             _isMoving = false;
@@ -122,9 +106,31 @@ namespace Project.Scripts
             if (cell is JumpingCell jumpingCell)
             {
                 Debug.Log("jump");
-                Move();
+
+                _playerMovement = _playerMovementContainer.GetMovement<JumpMovement>();
+                _playerMovement.Move(jumpingCell.JumpCell, _moveDirection);
+                _playerMovement.Moved += OnPlayerMoved;
+                //_isMoving = true;
+
+                return;
             }
 
+            if (cell is TeleportCell teleportCell)
+            {
+                if(teleportCell == _lastTeleportCell)
+                    return;
+
+                _lastTeleportCell = teleportCell.TargetCell;
+                _playerMovement = _playerMovementContainer.GetMovement<TeleportMovement>();
+                _playerMovement.Move(teleportCell.TargetCell, _moveDirection);
+                _playerMovement.Moved += OnPlayerMoved;
+                //_isMoving = true;
+
+                return;
+            }
+
+            _lastTeleportCell = null;
+            
             if (cell == _levelInfoService.CurrentFinishCell)
             {
                 _cellsHandler.OnFinishCell();
