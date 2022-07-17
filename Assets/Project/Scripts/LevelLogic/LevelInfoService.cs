@@ -28,10 +28,10 @@ namespace Project.Scripts
         public void OnLevelSpawned(Level level)
         {
             _positions.Clear();
-            
+
             _currentLevel = level;
-            
-            foreach (Cell currentCell in level.Cells)
+
+            /*foreach (Cell currentCell in level.Cells)
             {
                 var overlapSphere =
                     Physics.OverlapSphere(currentCell.transform.position, currentCell.transform.localScale.x);
@@ -60,8 +60,18 @@ namespace Project.Scripts
                 }
 
                 _neighbours.Add(cellHashCode, neighbours);
+            }*/
+
+            foreach (Cell currentCell in level.Cells)
+            {
+                var position = new Vector2();
+
+                position.x = currentCell.transform.position.x;
+                position.y = currentCell.transform.position.z;
+
+                if (_positions.ContainsKey(position) == false)
+                    _positions.Add(position, currentCell);
             }
-            
         }
 
         public Cell GetCellByDirection(Vector2 direction)
@@ -73,13 +83,13 @@ namespace Project.Scripts
 
             pos.y = Mathf.Round(pos.y);
             pos.x = Mathf.Round(pos.x);
-            
+
             if (_positions.ContainsKey(pos) == false)
                 return null;
-            
+
             return _positions[pos];
         }
-        
+
         public Cell GetPlayerBottomCell()
         {
             var sphereCast = Physics.SphereCast(_playerFacade.Transform.position,
