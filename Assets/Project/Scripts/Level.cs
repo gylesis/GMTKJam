@@ -35,10 +35,13 @@ namespace Project.Scripts
                 if (cell == _startCell)
                 {
                     cell.CellView.StartMarker.SetActive(true);
+                    cell.CellView.FinishMarker.SetActive(false);
+
                 }
                 else if (cell == _finishCell)
                 {
                     cell.CellView.FinishMarker.SetActive(true);
+                    cell.CellView.StartMarker.SetActive(false);
                 }
                 else
                 {
