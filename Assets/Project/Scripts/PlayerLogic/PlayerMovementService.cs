@@ -18,7 +18,7 @@ namespace Project.Scripts
         {
             if (AllowToPlay == false) return;
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 _playerMovementController.Move();
             }
