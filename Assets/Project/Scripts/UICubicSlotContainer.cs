@@ -30,13 +30,14 @@ public class UICubicSlotContainer : MonoBehaviour
         Level currentLevel = _levelInfoService.CurrentLevel;
 
         var busySlots = CountBusySlots();
-        
+
         /*if(busySlots >= currentLevel.MaxCellNumber)
             return;*/
-        
+        var slot = _slots.Find(s => s.CubeSide == side);
+
         if (_selectedStickerObserver.CurrentSticker != null)
         {
-            var slot = _slots.Find(s => s.CubeSide == side);
+           
 
             if (slot != null)
             {
@@ -50,7 +51,7 @@ public class UICubicSlotContainer : MonoBehaviour
         }
         else
         {
-            
+            DestroySticker(slot);
         }
     }
 
