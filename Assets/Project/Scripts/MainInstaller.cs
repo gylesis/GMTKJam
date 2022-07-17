@@ -57,6 +57,7 @@ namespace Project.Scripts
 
             Container.Bind<PlayerCubicSlotsBuilder>().AsSingle();
             Container.BindInstance(_curvesData);
+            Container.Bind<SelectionManager>().FromComponentInHierarchy().AsSingle();
 
         }
     }

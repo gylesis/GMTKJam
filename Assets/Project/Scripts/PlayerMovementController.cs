@@ -9,18 +9,20 @@ namespace Project.Scripts
         private readonly LevelInfoService _levelInfoService;
         private readonly PlayerMovementContainer _playerMovementContainer;
         private readonly PlayerDestinationTracker _playerDestinationTracker;
+        private readonly LevelAdvancer _levelAdvancer;
 
         private bool _isMoving;
         private IPlayerMovement _playerMovement;
         private Cell _currentCell;
 
         public PlayerMovementController(PlayerFacade playerFacade, PlayerMovementContainer playerMovementContainer,
-            LevelInfoService levelInfoService, PlayerDestinationTracker playerDestinationTracker)
+            LevelInfoService levelInfoService, PlayerDestinationTracker playerDestinationTracker, LevelAdvancer levelAdvancer)
         {
             _playerDestinationTracker = playerDestinationTracker;
             _playerMovementContainer = playerMovementContainer;
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
+            _levelAdvancer = levelAdvancer;
         }
 
         public void Move()
@@ -29,8 +31,12 @@ namespace Project.Scripts
             
             PlayerCubicSlot currentSticker = _playerFacade.GetCurrentSticker();
 
-            Debug.Log(currentSticker ,currentSticker);
-            
+            //Debug.Log(currentSticker ,currentSticker);
+            if (currentSticker == null)
+            {
+                _levelAdvancer.ResetLevel();
+            }
+
             PlayerCubicSlotData playerCubicSlot = currentSticker.SlotData;
             //IPlayerMovement playerMovement = playerCubicSlot.Movement;
 
@@ -63,7 +69,10 @@ namespace Project.Scripts
                 Cell cell = _levelInfoService.GetCellByDirection(moveDirection);
 
                 if(cell == null)
+                {
+                    _levelAdvancer.ResetLevel();
                     return;
+                }
                 
                 _playerMovement = playerMovement;
                 _playerMovement.Moved += OnPlayerMoved;
@@ -80,9 +89,7 @@ namespace Project.Scripts
             }
 
             _isMoving = true;
-
             _playerDestinationTracker.StartTracking();
-
             _playerDestinationTracker.CellChanged += OnPlayerCellChanged;
         }
 

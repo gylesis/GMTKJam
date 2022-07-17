@@ -18,17 +18,16 @@ namespace Project.Scripts
 
         public void StartLevel(int id)
         {
-            TryAdvanceLevel(id);
+            SetLevel(id);
         }
-                
-        private bool TryAdvanceLevel(int levelId)       
-        {
-            if (_levelSpawner.IsLastLevel())
-            {
-                Debug.LogWarning("This was the last level!");
-                return false;
-            }
 
+        public void ResetLevel()
+        {
+            SetLevel(_sessionObserver.Level);
+        }
+
+        private bool SetLevel(int levelId)
+        {
             Level level = _levelSpawner.LoadLevelById(levelId);
             level.FinishCellMoved += OnFinishCellMoved;
             _playerFacade.SpawnPlayer();
@@ -41,24 +40,29 @@ namespace Project.Scripts
         public void GoNextLevel()
         {
             var nextLevel = _sessionObserver.Level + 1;
-            if (TryAdvanceLevel(nextLevel))
+
+            if (_levelSpawner.IsLastLevel())
             {
-                _sessionObserver.SetLevel(nextLevel);
+                Debug.LogWarning("This was the last level!");
+                return;
             }
+
+            _sessionObserver.SetLevel(nextLevel);
+
         }
-        
+
         private async void OnFinishCellMoved(Level level)
         {
             level.FinishCellMoved -= OnFinishCellMoved;
-            
+
             _sessionObserver.SetLevel(_sessionObserver.Level + 1);
 
             Debug.Log("processed");
 
             await Task.Delay(2000);
 
-            TryAdvanceLevel(_sessionObserver.Level);
+            SetLevel(_sessionObserver.Level);
         }
-        
+
     }
 }
