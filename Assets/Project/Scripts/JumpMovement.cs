@@ -39,12 +39,12 @@ namespace Project.Scripts
             _soundPlayer.PlayJumpSound();
             var movePos = cellToMove.Pivot.position + (Vector3.up * (_playerFacade.Transform.localScale.x / 2));
 
-            //await _playerFacade.Transform.DOMove(movePos, 1).SetEase(Ease.InQuad).AsyncWaitForCompletion();
+            await _playerFacade.Transform.DOMove(movePos, 1).SetEase(Ease.InQuad).AsyncWaitForCompletion();
 
             _startPos = _playerFacade.Transform.position;
             _targetPos = movePos;
 
-            Move();
+            //Move();
         }
 
         private void Move()
