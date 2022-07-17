@@ -67,6 +67,7 @@ namespace Project.Scripts
                 await _playerFacade.TryMoveToNonExistCell(_moveDirection);
                 _deathFinishHandler.OnDeath();
 
+                CanMove = false;
                 return;
             }
 
@@ -140,6 +141,7 @@ namespace Project.Scripts
             if (cell == _levelInfoService.CurrentFinishCell)
             {
                 _deathFinishHandler.OnFinishCell();
+                CanMove = false;
             }
 
             //PlayerCubicSlot playerCubicSlot = _playerFacade.GetCurrentSticker();

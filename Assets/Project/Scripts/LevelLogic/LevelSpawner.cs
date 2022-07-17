@@ -27,6 +27,8 @@ namespace Project.Scripts
             Level levelPrefab = _levelsContainer.GetLevel(id);
             Level loadedLevel = Object.Instantiate(levelPrefab);
 
+            Debug.Log($"Id {id} name {loadedLevel}");
+            
             Debug.Log("load");
 
             if (_currentLevel != null)

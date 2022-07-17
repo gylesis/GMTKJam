@@ -20,6 +20,9 @@ namespace Project.Scripts
         private void Init(LevelAdvancer levelAdvancer)
         {
             _levelAdvancer = levelAdvancer;
+            
+            _restartButton.onClick.AddListener((OnRestartButtonClicked));
+            _continueButton.onClick.AddListener((OnContinueButtonClicked));
         }
 
         public void Finish()
@@ -35,9 +38,6 @@ namespace Project.Scripts
             await _canvasGroup.DOFade(1, 1).AsyncWaitForCompletion();
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
-
-            _restartButton.onClick.AddListener((OnRestartButtonClicked));
-            _continueButton.onClick.AddListener((OnContinueButtonClicked));
         }
 
         public void Hide()
@@ -49,6 +49,7 @@ namespace Project.Scripts
         
         private void OnContinueButtonClicked()
         {
+            Debug.Log("continue button");
             _levelAdvancer.GoNextLevel();
             
             Hide();

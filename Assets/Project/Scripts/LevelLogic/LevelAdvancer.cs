@@ -17,6 +17,7 @@ namespace Project.Scripts
         private UICubicSlotContainer _uiCubicSlotContainer;
         private UIContainer _uiContainer;
         private ButtonRestricter _buttonRestricter;
+        private Level _currentSpawnedLevel;
         public Level CurrentLevel => _levelSpawner.GetCurrentLevel();
 
         public LevelAdvancer(LevelSpawner levelSpawner, SessionObserver sessionObserver, PlayerFacade playerFacade,
@@ -37,42 +38,60 @@ namespace Project.Scripts
         {
             _uiContainer.RestartLevelButton.onClick.AddListener((() => ResetLevel()));
         }
-
-
+        
         public void StartLevel(int id)
         {
+            if (_currentSpawnedLevel != null)
+            {
+                _currentSpawnedLevel.FinishCellMoved -= OnFinishCellMoved;
+            }
+
+            Debug.Log($"Start level {id}");
             SetLevel(id);
         }
 
         public void ResetLevel()
         {
+            if (_currentSpawnedLevel != null)
+            {
+                _currentSpawnedLevel.FinishCellMoved -= OnFinishCellMoved;
+            }
+            Debug.Log("Reset Level");
             SetLevel(_sessionObserver.Level);
         }
 
         public void SkipLevel()
         {
+            if (_currentSpawnedLevel != null)
+            {
+                _currentSpawnedLevel.FinishCellMoved -= OnFinishCellMoved;
+            }
+            Debug.Log("Skip level");
             GoNextLevel();
         }
 
         private void SetLevel(int levelId)
         {
-            Level level = _levelSpawner.LoadLevelById(levelId);
-            level.FinishCellMoved += OnFinishCellMoved;
-
+            Debug.Log("Set level");
+            
+            _currentSpawnedLevel = _levelSpawner.LoadLevelById(levelId);
+            
+            _currentSpawnedLevel.FinishCellMoved += OnFinishCellMoved;
+            
             _playerFacade.SpawnPlayer();
             _playerFacade.ResetPlayer();
 
-            level.PlacePlayer(_playerFacade.Transform);
+            _currentSpawnedLevel.PlacePlayer(_playerFacade.Transform);
 
             _playerFacade.ShowPlayer();
 
-            if (level.LevelTitle == String.Empty)
+            if (_currentSpawnedLevel.LevelTitle == String.Empty)
             {
                 _inGameUIController.SetText("Name is not set");
             }
             else
             {
-                _inGameUIController.SetText(level.LevelTitle);
+                _inGameUIController.SetText(_currentSpawnedLevel.LevelTitle);
             }
 
             DOVirtual.DelayedCall(4, () => _inGameUIController.HideText());
@@ -84,6 +103,7 @@ namespace Project.Scripts
 
         public void GoNextLevel()
         {
+            Debug.Log("Go next level");
             _uiCubicSlotContainer.ClearUISlots();
 
             var nextLevel = _sessionObserver.Level + 1;

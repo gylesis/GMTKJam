@@ -29,9 +29,9 @@ namespace Project.Scripts
             
             var movePos = cellToMove.Pivot.position + (Vector3.up * (_playerFacade.Transform.localScale.x / 2));
 
-            await _playerFacade.Transform.DOMove(movePos, _animationCurves.CubeMovementDuration).SetEase(_animationCurves.CubeMovementCurve).AsyncWaitForCompletion();
+            Rotate(cellToMove, direction);
             
-            await Rotate(cellToMove, direction);
+            await _playerFacade.Transform.DOMove(movePos, _animationCurves.CubeMovementDuration).SetEase(_animationCurves.CubeMovementCurve).AsyncWaitForCompletion();
 
             Cell cell = _levelInfoService.GetPlayerBottomCell();
 
