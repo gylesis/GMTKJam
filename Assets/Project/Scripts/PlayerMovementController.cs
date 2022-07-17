@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Project.Scripts
 {
@@ -9,21 +10,25 @@ namespace Project.Scripts
         private readonly LevelInfoService _levelInfoService;
         private readonly PlayerMovementContainer _playerMovementContainer;
         private readonly PlayerDestinationTracker _playerDestinationTracker;
-        private readonly LevelAdvancer _levelAdvancer;
+
+        public event Action MovedOnFinish;
+        //private readonly LevelAdvancer _levelAdvancer;
+
 
         private bool _isMoving;
         private IPlayerMovement _playerMovement;
         private Cell _currentCell;
 
         public PlayerMovementController(PlayerFacade playerFacade, PlayerMovementContainer playerMovementContainer,
-            LevelInfoService levelInfoService, PlayerDestinationTracker playerDestinationTracker, LevelAdvancer levelAdvancer)
+            LevelInfoService levelInfoService, PlayerDestinationTracker playerDestinationTracker)
         {
             _playerDestinationTracker = playerDestinationTracker;
             _playerMovementContainer = playerMovementContainer;
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
-            _levelAdvancer = levelAdvancer;
+
         }
+
 
         public void Move()
         {
@@ -34,7 +39,10 @@ namespace Project.Scripts
             //Debug.Log(currentSticker ,currentSticker);
             if (currentSticker == null)
             {
-                _levelAdvancer.ResetLevel();
+                Debug.Log("no current");
+                return;
+
+                //_levelAdvancer.ResetLevel();
             }
 
             PlayerCubicSlotData playerCubicSlot = currentSticker.SlotData;
@@ -70,9 +78,11 @@ namespace Project.Scripts
 
                 if(cell == null)
                 {
-                    _levelAdvancer.ResetLevel();
+                    //_levelAdvancer.ResetLevel();
                     return;
                 }
+
+                
                 
                 _playerMovement = playerMovement;
                 _playerMovement.Moved += OnPlayerMoved;
@@ -126,6 +136,11 @@ namespace Project.Scripts
             if (cell is JumpingCell jumpingCell)
             {
                 Move();
+            }
+
+            if (cell == _levelInfoService.CurrentFinishCell)
+            {
+                Debug.Log("WIN!");
             }
 
             //PlayerCubicSlot playerCubicSlot = _playerFacade.GetCurrentSticker();

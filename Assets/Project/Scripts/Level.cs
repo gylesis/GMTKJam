@@ -25,7 +25,8 @@ namespace Project.Scripts
 
         private void OnValidate()
         {
-            /*_cells = GetComponentsInChildren<Cell>();
+            
+            _cells = GetComponentsInChildren<Cell>();
 
             foreach (Cell cell in _cells)
             {
@@ -45,16 +46,18 @@ namespace Project.Scripts
                     cell.CellView.TeleportSpriteRenderer.SetActive(false);
                 }
 
-                if (cell is JumpingCell jumpingCell)
+                if (cell is JumpingCell jumpingCell && jumpingCell.JumpCell != null)
                 {
+
                     jumpingCell.JumpCell.CellView.JumpSpriteRenderer.SetActive(true);
                 }
 
-                if (cell is TeleportCell teleportCell)
+                if (cell is TeleportCell teleportCell && teleportCell.TargetCell != null)
                 {
                     teleportCell.TargetCell.CellView.JumpSpriteRenderer.SetActive(true);
                 }
-            }*/
+            }
+            
         }
 
         public void PlacePlayer(Transform player)

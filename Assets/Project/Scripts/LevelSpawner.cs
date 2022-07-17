@@ -17,6 +17,11 @@ namespace Project.Scripts
             _levelInfoService = levelInfoService; 
         }
 
+        public Level GetCurrentLevel()
+        {
+            return _currentLevel;
+        }
+
         public Level LoadLevelById(int id)
         {
             Level levelPrefab = _levelsContainer.GetLevel(id);

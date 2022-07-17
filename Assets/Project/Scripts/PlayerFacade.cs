@@ -12,6 +12,7 @@ namespace Project.Scripts
         public PlayerFacade(PlayerSpawner playerSpawner)
         {
             _playerSpawner = playerSpawner;
+            
         }
         
         public void SpawnPlayer()
