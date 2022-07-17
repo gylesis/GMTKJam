@@ -16,11 +16,12 @@ namespace Project.Scripts
         [SerializeField] private Player _player;
         [SerializeField] private StaticData _staticData;
         [SerializeField] private AnimationCurvesData _curvesData;
-
+        [SerializeField] private LevelNameText _levelNameText;
         public override void InstallBindings()
         {
             //Application.targetFrameRate = 60;
 
+            Container.Bind<LevelNameText>().FromInstance(_levelNameText).AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerDestinationTracker>().AsSingle();
             
             Container.Bind<StaticData>().FromInstance(_staticData).AsSingle();
