@@ -18,6 +18,8 @@ namespace Project.Scripts.Raycast.Selecting
 
         private ICustomSelectable _selection;
 
+        public bool Active { get; set; } = true;
+
         [Inject]
         private void Init(IRayProvider rayProvider, ISelector selector, ISelectionResponse selectionResponse)
         {
@@ -28,7 +30,8 @@ namespace Project.Scripts.Raycast.Selecting
 
         private void Update()
         {
-           HandleSelection();
+            if (Active)
+                HandleSelection();
         }
 
         private void HandleSelection()
@@ -41,7 +44,7 @@ namespace Project.Scripts.Raycast.Selecting
             _selector.Check(_rayProvider.CreateRay());
             _selection = _selector.GetSelection();
 
-            
+
             if (_selection != null)
             {
                 _selectionResponse.OnSelect(_selection);

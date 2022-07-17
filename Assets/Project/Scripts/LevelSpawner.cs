@@ -7,6 +7,7 @@ namespace Project.Scripts
     {
         private int _levelId;
         private readonly LevelInfoService _levelInfoService;
+    
         private readonly LevelsContainer _levelsContainer;
         private Level _currentLevel;
 

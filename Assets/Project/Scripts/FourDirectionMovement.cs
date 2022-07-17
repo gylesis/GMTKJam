@@ -10,11 +10,13 @@ namespace Project.Scripts
 
         private readonly PlayerFacade _playerFacade;
         private readonly LevelInfoService _levelInfoService;
+        private readonly AnimationCurvesData _animationCurves;
 
-        public FourDirectionMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService)
+        public FourDirectionMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService, AnimationCurvesData animationCurves)
         {
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
+            _animationCurves = animationCurves;
         }
 
         public async void Move(Cell cellToMove, Vector2 direction)
@@ -23,7 +25,7 @@ namespace Project.Scripts
 
             Rotate(cellToMove, direction);
 
-            await _playerFacade.Transform.DOMove(movePos, 1).AsyncWaitForCompletion();
+            await _playerFacade.Transform.DOMove(movePos, _animationCurves.CubeMovementDuration).SetEase(_animationCurves.CubeMovementCurve).AsyncWaitForCompletion();
 
             Cell cell = _levelInfoService.GetPlayerBottomCell();
 
@@ -65,7 +67,7 @@ namespace Project.Scripts
 
             //  _playerFacade.Transform.rotation = Quaternion.Euler(playerEulers);
 
-            _playerFacade.Transform.DOLocalRotate(playerEulers, 1, RotateMode.FastBeyond360);
+            _playerFacade.Transform.DOLocalRotate(playerEulers, _animationCurves.CubeMovementDuration, RotateMode.FastBeyond360).SetEase(_animationCurves.CubeRotationCurve);
         }
     }
 }

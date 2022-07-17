@@ -6,6 +6,7 @@ namespace Project.Scripts
     public class Level : MonoBehaviour
     {
         [SerializeField] private Cell[] _cells;
+        [SerializeField] private int _requiredCellNumber;
 
         [SerializeField] private Cell _startCell;
         [SerializeField] private Cell _finishCell;
