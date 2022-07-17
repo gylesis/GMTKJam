@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Project.Scripts;
 using UnityEngine;
 
@@ -7,7 +5,7 @@ public class PlayerSlotUI : MonoBehaviour
 {
     private MoveSide _moveSide;
     [SerializeField] private CubeSide _cubeSide;
-    [SerializeField]private Sticker _sticker;
+    [SerializeField] private Sticker _sticker;
 
     public Sticker Sticker
     {
@@ -21,5 +19,7 @@ public class PlayerSlotUI : MonoBehaviour
         set => _sticker._moveSide = value;
     }
 
+    public bool IsEmpty => _sticker == null;
+    
     public CubeSide CubeSide => _cubeSide;
 }

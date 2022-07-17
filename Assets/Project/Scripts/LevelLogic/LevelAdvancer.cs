@@ -2,28 +2,40 @@ using System;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace Project.Scripts
 {
-    public class LevelAdvancer
+    public class LevelAdvancer : IInitializable, IDisposable
     {
         private readonly LevelSpawner _levelSpawner;
         private readonly SessionObserver _sessionObserver;
         private readonly PlayerFacade _playerFacade;
-        private LevelNameText _levelNameText;
+        private InGameUIController _inGameUIController;
         private LevelFinishService _levelFinishService;
         private PlayerCubicSlotsBuilder _playerCubicSlotsBuilder;
+        private UICubicSlotContainer _uiCubicSlotContainer;
+        private UIContainer _uiContainer;
         public Level CurrentLevel => _levelSpawner.GetCurrentLevel();
 
         public LevelAdvancer(LevelSpawner levelSpawner, SessionObserver sessionObserver, PlayerFacade playerFacade,
-            LevelNameText levelNameText, PlayerCubicSlotsBuilder playerCubicSlotsBuilder)
+            InGameUIController inGameUIController, PlayerCubicSlotsBuilder playerCubicSlotsBuilder,
+            UICubicSlotContainer uiCubicSlotContainer, UIContainer uiContainer)
         {
+            _uiContainer = uiContainer;
+            _uiCubicSlotContainer = uiCubicSlotContainer;
             _playerCubicSlotsBuilder = playerCubicSlotsBuilder;
-            _levelNameText = levelNameText;
+            _inGameUIController = inGameUIController;
             _playerFacade = playerFacade;
             _sessionObserver = sessionObserver;
             _levelSpawner = levelSpawner;
         }
+
+        public void Initialize()
+        {
+            _uiContainer.RestartLevelButton.onClick.AddListener((() => ResetLevel()));
+        }
+
 
         public void StartLevel(int id)
         {
@@ -39,7 +51,7 @@ namespace Project.Scripts
         {
             GoNextLevel();
         }
-        
+
         private void SetLevel(int levelId)
         {
             Level level = _levelSpawner.LoadLevelById(levelId);
@@ -47,27 +59,29 @@ namespace Project.Scripts
 
             _playerFacade.SpawnPlayer();
             _playerFacade.ResetPlayer();
-            
+
             level.PlacePlayer(_playerFacade.Transform);
-            
+
             _playerFacade.ShowPlayer();
 
             if (level.LevelTitle == String.Empty)
             {
-                _levelNameText.SetText("Name is not set");
+                _inGameUIController.SetText("Name is not set");
             }
             else
             {
-                _levelNameText.SetText(level.LevelTitle);
+                _inGameUIController.SetText(level.LevelTitle);
             }
 
-            DOVirtual.DelayedCall(4, () => _levelNameText.HideText());
+            DOVirtual.DelayedCall(4, () => _inGameUIController.HideText());
 
             _playerCubicSlotsBuilder.ClearPrevious();
         }
 
         public void GoNextLevel()
         {
+            _uiCubicSlotContainer.ClearUISlots();
+
             var nextLevel = _sessionObserver.Level + 1;
 
             if (_levelSpawner.IsLastLevel())
@@ -79,23 +93,26 @@ namespace Project.Scripts
             _sessionObserver.SetLevel(nextLevel);
 
             SetLevel(nextLevel);
-
         }
 
         private async void OnFinishCellMoved(Level level)
         {
-           // GoNextLevel();
-            
+            // GoNextLevel();
+
             level.FinishCellMoved -= OnFinishCellMoved;
 
             //_sessionObserver.SetLevel(_sessionObserver.Level + 1);
 
-           // Debug.Log("processed");
+            // Debug.Log("processed");
 
             //await Task.Delay(2000);
 
-           // SetLevel(_sessionObserver.Level);
+            // SetLevel(_sessionObserver.Level);
+        }
+
+        public void Dispose()
+        {
+            _uiContainer.RestartLevelButton.onClick.RemoveAllListeners();
         }
     }
-    
 }

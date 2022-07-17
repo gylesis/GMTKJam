@@ -11,10 +11,12 @@ public class SelectedStickerObserver
     private StickerPrefabContainer _stickerPrefabContainer;
     private Sticker _currentSticker;
     private CubeSide _prevSide;
+    
     private bool _placed;
 
     [Inject]
-    public SelectedStickerObserver(PlayerMovementContainer movementContainer, StickerPrefabContainer stickerPrefabContainer)
+    public SelectedStickerObserver(PlayerMovementContainer movementContainer,
+        StickerPrefabContainer stickerPrefabContainer)
     {
         _movementContainer = movementContainer;
         _stickerPrefabContainer = stickerPrefabContainer;
@@ -45,6 +47,7 @@ public class SelectedStickerObserver
                 _index = 0;
             }
         }
+
         _currentSticker = _stickerPrefabContainer.Slots[_index];
         _prevSide = side;
     }
