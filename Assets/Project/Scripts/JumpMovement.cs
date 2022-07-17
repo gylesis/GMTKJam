@@ -66,7 +66,7 @@ namespace Project.Scripts
                 float nextX = Mathf.MoveTowards(transform.position.x, x1, _speed * Time.deltaTime);
                 dist += float.Epsilon;
 
-                float baseY = Mathf.Lerp(_startPos.y, _targetPos.y, (nextX - x0) / dist);
+                float baseY = 0;//Mathf.Lerp(_startPos.y, _targetPos.y, (nextX - x0) / dist);
                 float arc = _arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * dist * dist);
                 var nextPos = new Vector3(nextX, baseY + arc, transform.position.z);
 

@@ -14,6 +14,7 @@ namespace Project.Scripts
         private List<PlayerCubicSlot> _slots = new List<PlayerCubicSlot>();
         private List<Sticker> _stickers = new List<Sticker>();
         
+        
 
         [Inject]
         public PlayerCubicSlotsBuilder(StickersVisualizer visualizer, PlayerFacade facade)

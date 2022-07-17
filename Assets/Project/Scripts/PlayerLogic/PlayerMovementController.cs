@@ -35,6 +35,7 @@ namespace Project.Scripts
 
         public async void Move()
         {
+            if(!CanMove) return;
             if (_isMoving) return;
 
             PlayerCubicSlot currentSticker = _playerFacade.GetCurrentSticker();
