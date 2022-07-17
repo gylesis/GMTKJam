@@ -1,4 +1,6 @@
+using System;
 using System.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Project.Scripts
@@ -8,10 +10,12 @@ namespace Project.Scripts
         private readonly LevelSpawner _levelSpawner;
         private readonly SessionObserver _sessionObserver;
         private readonly PlayerFacade _playerFacade;
+        private LevelNameText _levelNameText;
         public Level CurrentLevel => _levelSpawner.GetCurrentLevel();
 
-        public LevelAdvancer(LevelSpawner levelSpawner, SessionObserver sessionObserver, PlayerFacade playerFacade)
+        public LevelAdvancer(LevelSpawner levelSpawner, SessionObserver sessionObserver, PlayerFacade playerFacade, LevelNameText levelNameText)
         {
+            _levelNameText = levelNameText;
             _playerFacade = playerFacade;
             _sessionObserver = sessionObserver;
             _levelSpawner = levelSpawner;
@@ -35,6 +39,18 @@ namespace Project.Scripts
 
             level.PlacePlayer(_playerFacade.Transform);
             _playerFacade.ShowPlayer();
+
+            if (level.LevelTitle == String.Empty)
+            {
+                _levelNameText.SetText("Name is not set");
+            }
+            else
+            {
+                _levelNameText.SetText(level.LevelTitle);
+            }
+
+            DOVirtual.DelayedCall(4, () => _levelNameText.HideText());
+            
             return true;
         }
 

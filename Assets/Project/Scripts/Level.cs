@@ -11,6 +11,9 @@ namespace Project.Scripts
         [SerializeField] private Cell _startCell;
         [SerializeField] private Cell _finishCell;
 
+        [SerializeField] private string _levelTitle;
+
+        public string LevelTitle => _levelTitle;
         public Cell StartCell => _startCell;
         public Cell FinishCell => _finishCell;
 
@@ -25,7 +28,6 @@ namespace Project.Scripts
 
         private void OnValidate()
         {
-            
             _cells = GetComponentsInChildren<Cell>();
 
             foreach (Cell cell in _cells)
@@ -68,4 +70,5 @@ namespace Project.Scripts
             player.transform.position = _startCell.Pivot.position + (Vector3.up * (player.transform.localScale.x / 2));
         }
     }
+    
 }

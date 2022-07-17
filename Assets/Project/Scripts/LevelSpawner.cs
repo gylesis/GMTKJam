@@ -7,14 +7,14 @@ namespace Project.Scripts
     {
         private int _levelId;
         private readonly LevelInfoService _levelInfoService;
-    
+
         private readonly LevelsContainer _levelsContainer;
         private Level _currentLevel;
 
         public LevelSpawner(LevelInfoService levelInfoService, LevelsContainer levelsContainer)
         {
             _levelsContainer = levelsContainer;
-            _levelInfoService = levelInfoService; 
+            _levelInfoService = levelInfoService;
         }
 
         public Level GetCurrentLevel()
@@ -27,8 +27,8 @@ namespace Project.Scripts
             Level levelPrefab = _levelsContainer.GetLevel(id);
             Level loadedLevel = Object.Instantiate(levelPrefab);
 
-            Debug.Log("load");  
-            
+            Debug.Log("load");
+
             if (_currentLevel != null)
             {
                 UnloadCurrentLevel();

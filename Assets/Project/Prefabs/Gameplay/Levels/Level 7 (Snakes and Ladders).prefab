@@ -100,6 +100,7 @@ MonoBehaviour:
   _requiredCellNumber: 0
   _startCell: {fileID: 8507745646133630191}
   _finishCell: {fileID: 3975651148305199706}
+  _levelTitle: 
 --- !u!1001 &53778607136482260
 PrefabInstance:
   m_ObjectHideFlags: 0
