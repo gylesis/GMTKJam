@@ -30,13 +30,14 @@ public class UICubicSlotContainer : MonoBehaviour
         Level currentLevel = _levelInfoService.CurrentLevel;
 
         var busySlots = CountBusySlots();
-        
+
         /*if(busySlots >= currentLevel.MaxCellNumber)
             return;*/
-        
+        var slot = _slots.Find(s => s.CubeSide == side);
+
         if (_selectedStickerObserver.CurrentSticker != null)
         {
-            var slot = _slots.Find(s => s.CubeSide == side);
+           
 
             if (slot != null)
             {
@@ -47,6 +48,10 @@ public class UICubicSlotContainer : MonoBehaviour
 
                 slot.Sticker = _stickersVisualizer.Create(_selectedStickerObserver.CurrentSticker, side, transform);
             }
+        }
+        else
+        {
+            DestroySticker(slot);
         }
     }
 
@@ -71,9 +76,13 @@ public class UICubicSlotContainer : MonoBehaviour
         {
             if (slot.IsEmpty == false)
             {
-                _stickersVisualizer.DestroySticker(slot.Sticker.gameObject);
+                DestroySticker(slot);
             }
         }
-        
+    }
+
+    public void DestroySticker(PlayerSlotUI slot)
+    {
+        _stickersVisualizer.DestroySticker(slot.Sticker.gameObject);
     }
 }
