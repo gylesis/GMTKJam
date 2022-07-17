@@ -1,5 +1,3 @@
-using Project.Scripts.Raycast;
-using Project.Scripts.Raycast.Selecting;
 using UnityEngine;
 using Zenject;
 
@@ -19,12 +17,8 @@ namespace Project.Scripts.Raycast
             _id = GetComponent<SideId>();
         }
 
-        
-
-
         public void Interact()
         {
-            
             _selectedStickerObserver.TryCycleThroughStickers(_id.GetId());
             _uiCubicSlotContainer.SetSlot(_id.GetId());
         }

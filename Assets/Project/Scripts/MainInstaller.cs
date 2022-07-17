@@ -1,6 +1,5 @@
 ﻿using Project.Scripts.Raycast;
 using Project.Scripts.Raycast.Selecting;
-using Project.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -14,21 +13,28 @@ namespace Project.Scripts
         [SerializeField] private Player _player;
         [SerializeField] private StaticData _staticData;
         [SerializeField] private AnimationCurvesData _curvesData;
-        [SerializeField] private LevelNameText _levelNameText;
+        [SerializeField] private InGameUIController _inGameUIController;
 
         [SerializeField] private LevelFinishService _levelFinishService;
         [SerializeField] private LevelDeathService _levelDeathService;
+        [SerializeField] private UICubicSlotContainer _uiCubicSlotContainer;
 
+        [SerializeField] private UIContainer _uiContainer;
+        
         public override void InstallBindings()
         {
             //Application.targetFrameRate = 60;
 
+            Container.Bind<UIContainer>().FromInstance(_uiContainer).AsSingle();
+            
+            Container.Bind<UICubicSlotContainer>().FromInstance(_uiCubicSlotContainer).AsSingle();
+            
             Container.Bind<CellsHandler>().AsSingle();
 
             Container.Bind<LevelDeathService>().FromInstance(_levelDeathService).AsSingle();
             Container.Bind<LevelFinishService>().FromInstance(_levelFinishService).AsSingle();
 
-            Container.Bind<LevelNameText>().FromInstance(_levelNameText).AsSingle();
+            Container.Bind<InGameUIController>().FromInstance(_inGameUIController).AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerDestinationTracker>().AsSingle();
 
             Container.Bind<StaticData>().FromInstance(_staticData).AsSingle();
@@ -45,7 +51,7 @@ namespace Project.Scripts
             Container.BindInterfacesAndSelfTo<LevelSpawner>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ButtonSpawner>().AsSingle();
 
-            Container.Bind<LevelAdvancer>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LevelAdvancer>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<PlayerMovementService>().AsSingle();
 
@@ -57,7 +63,6 @@ namespace Project.Scripts
             Container.Bind<ISelector>().To<RayCastBasedSelector>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ISelectionResponse>().To<InteractionResponce>().AsSingle();
 
-            Container.Bind<UICubicSlotContainer>().FromComponentInHierarchy().AsSingle();
             Container.Bind<StickersVisualizer>().FromComponentInHierarchy().AsSingle();
             Container.Bind<SelectedStickerObserver>().AsSingle();
             Container.BindInstance(_stickerPrefabContainer).AsSingle();
