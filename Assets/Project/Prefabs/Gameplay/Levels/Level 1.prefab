@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cells: []
+  _requiredCellNumber: 2
   _startCell: {fileID: 7869115487078022054}
   _finishCell: {fileID: 7023092647428726060}
 --- !u!1001 &3393311154372218483

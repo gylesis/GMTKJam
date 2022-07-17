@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: 9121719324864339708}
   - component: {fileID: 9121719324864339711}
   m_Layer: 0
-  m_Name: Level 7
+  m_Name: Level 7 (Snakes and Ladders)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,6 +94,7 @@ MonoBehaviour:
   - {fileID: 1559104012749380528}
   - {fileID: 3975651148305199706}
   - {fileID: 0}
+  _requiredCellNumber: 6
   _startCell: {fileID: 8507745646133630191}
   _finishCell: {fileID: 3975651148305199706}
 --- !u!1001 &53778607136482260

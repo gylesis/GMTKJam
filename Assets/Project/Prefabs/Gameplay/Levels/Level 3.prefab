@@ -89,6 +89,7 @@ MonoBehaviour:
   - {fileID: 1559104012749380528}
   - {fileID: 3975651148305199706}
   - {fileID: 0}
+  _requiredCellNumber: 4
   _startCell: {fileID: 3975651148305199706}
   _finishCell: {fileID: 1886843377306224243}
 --- !u!1001 &53778607136482260

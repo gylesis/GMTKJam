@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 9121719324864339708}
   - component: {fileID: 9121719324864339711}
   m_Layer: 0
-  m_Name: Level 2
+  m_Name: Level 2 (No brakes)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,6 +92,7 @@ MonoBehaviour:
   - {fileID: 1559104012749380528}
   - {fileID: 3975651148305199706}
   - {fileID: 786739465630802173}
+  _requiredCellNumber: 4
   _startCell: {fileID: 7705747838276557018}
   _finishCell: {fileID: 786739465630802173}
 --- !u!1001 &53778607136482260
