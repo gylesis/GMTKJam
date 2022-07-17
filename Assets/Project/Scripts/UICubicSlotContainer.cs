@@ -13,12 +13,15 @@ public class UICubicSlotContainer : MonoBehaviour
     private SelectedStickerObserver _selectedStickerObserver;
     private StickersVisualizer _stickersVisualizer;
     private LevelInfoService _levelInfoService;
+    private SoundPlayer _soundPlayer;
 
     public List<PlayerSlotUI> Slots => _slots;
 
     [Inject]
-    public void Init(SelectedStickerObserver selectedStickerObserver, StickersVisualizer stickersVisualizer, LevelInfoService levelInfoService)
+    public void Init(SelectedStickerObserver selectedStickerObserver, StickersVisualizer stickersVisualizer,
+        LevelInfoService levelInfoService, SoundPlayer soundPlayer)
     {
+        _soundPlayer = soundPlayer;
         _levelInfoService = levelInfoService;
         _slots = _slotsRoot.GetComponentsInChildren<PlayerSlotUI>().ToList();
         _selectedStickerObserver = selectedStickerObserver;
@@ -46,6 +49,7 @@ public class UICubicSlotContainer : MonoBehaviour
                     _stickersVisualizer.DestroySticker(slot.Sticker.gameObject);
                 }
 
+                _soundPlayer.PlayStickerSound();
                 slot.Sticker = _stickersVisualizer.Create(_selectedStickerObserver.CurrentSticker, side, transform);
             }
         }
@@ -58,7 +62,7 @@ public class UICubicSlotContainer : MonoBehaviour
     private int CountBusySlots()
     {
         int count = 0;
-        
+
         foreach (PlayerSlotUI slot in _slots)
         {
             if (slot.IsEmpty == false)
@@ -69,7 +73,7 @@ public class UICubicSlotContainer : MonoBehaviour
 
         return count;
     }
-    
+
     public void ClearUISlots()
     {
         foreach (PlayerSlotUI slot in _slots)

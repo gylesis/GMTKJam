@@ -25,14 +25,18 @@ namespace Project.Scripts
         [Tooltip("How high the arc should be, in units")]
         public float _arcHeight = 5;
 
-        public JumpMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService)
+        private SoundPlayer _soundPlayer;
+
+        public JumpMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService, SoundPlayer soundPlayer)
         {
+            _soundPlayer = soundPlayer;
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
         }
 
         public async void Move(Cell cellToMove, Vector2 direction)
         {
+            _soundPlayer.PlayJumpSound();
             var movePos = cellToMove.Pivot.position + (Vector3.up * (_playerFacade.Transform.localScale.x / 2));
 
             await _playerFacade.Transform.DOMove(movePos, 1).SetEase(Ease.InQuad).AsyncWaitForCompletion();

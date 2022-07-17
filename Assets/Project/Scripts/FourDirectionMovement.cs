@@ -13,9 +13,11 @@ namespace Project.Scripts
         private readonly LevelInfoService _levelInfoService;
 
         private readonly AnimationCurvesData _animationCurves;
-        
-        public FourDirectionMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService, AnimationCurvesData animationCurves)
+        private SoundPlayer _soundPlayer;
+
+        public FourDirectionMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService, AnimationCurvesData animationCurves, SoundPlayer soundPlayer)
         {
+            _soundPlayer = soundPlayer;
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
             _animationCurves = animationCurves;
@@ -23,6 +25,8 @@ namespace Project.Scripts
 
         public async void Move(Cell cellToMove, Vector2 direction)
         {
+            _soundPlayer.PlayMoveSound();
+            
             var movePos = cellToMove.Pivot.position + (Vector3.up * (_playerFacade.Transform.localScale.x / 2));
 
             await _playerFacade.Transform.DOMove(movePos, _animationCurves.CubeMovementDuration).SetEase(_animationCurves.CubeMovementCurve).AsyncWaitForCompletion();

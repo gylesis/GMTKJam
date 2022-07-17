@@ -8,21 +8,19 @@ namespace Project.Scripts
         private readonly PlayerFacade _playerFacade;
         private readonly LevelInfoService _levelInfoService;
         private readonly PlayerMovementContainer _playerMovementContainer;
-        private readonly PlayerDestinationTracker _playerDestinationTracker;
 
         private bool _isMoving;
         private IPlayerMovement _playerMovement;
         private Cell _currentCell;
-        private CellsHandler _cellsHandler;
+        private DeathFinishHandler _deathFinishHandler;
         private Vector2 _moveDirection;
         private Cell _lastTeleportCell;
 
         public PlayerMovementController(PlayerFacade playerFacade, PlayerMovementContainer playerMovementContainer,
-            LevelInfoService levelInfoService, PlayerDestinationTracker playerDestinationTracker,
-            CellsHandler cellsHandler)
+            LevelInfoService levelInfoService,
+            DeathFinishHandler deathFinishHandler)
         {
-            _cellsHandler = cellsHandler;
-            _playerDestinationTracker = playerDestinationTracker;
+            _deathFinishHandler = deathFinishHandler;
             _playerMovementContainer = playerMovementContainer;
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
@@ -59,7 +57,7 @@ namespace Project.Scripts
             if (moveCell == null)
             {
                 await _playerFacade.TryMoveToNonExistCell(_moveDirection);
-                _cellsHandler.OnDeath();
+                _deathFinishHandler.OnDeath();
 
                 return;
             }
@@ -108,8 +106,8 @@ namespace Project.Scripts
                 Debug.Log("jump");
 
                 _playerMovement = _playerMovementContainer.GetMovement<JumpMovement>();
-                _playerMovement.Move(jumpingCell.JumpCell, _moveDirection);
-                _playerMovement.Moved += OnPlayerMoved;
+
+                Move(jumpingCell.JumpCell, _moveDirection);
                 //_isMoving = true;
 
                 return;
@@ -117,29 +115,36 @@ namespace Project.Scripts
 
             if (cell is TeleportCell teleportCell)
             {
-                if(teleportCell == _lastTeleportCell)
+                if (teleportCell == _lastTeleportCell)
                     return;
 
                 _lastTeleportCell = teleportCell.TargetCell;
                 _playerMovement = _playerMovementContainer.GetMovement<TeleportMovement>();
-                _playerMovement.Move(teleportCell.TargetCell, _moveDirection);
-                _playerMovement.Moved += OnPlayerMoved;
+
+                Move(_lastTeleportCell, _moveDirection);
                 //_isMoving = true;
 
                 return;
             }
 
             _lastTeleportCell = null;
-            
+
             if (cell == _levelInfoService.CurrentFinishCell)
             {
-                _cellsHandler.OnFinishCell();
+                _deathFinishHandler.OnFinishCell();
             }
 
             //PlayerCubicSlot playerCubicSlot = _playerFacade.GetCurrentSticker();
             //_playerMovement = playerCubicSlot.SlotData.Movement;
 
             // _playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
+        }
+
+
+        private void Move(Cell moveCell, Vector2 direction)
+        {
+            _playerMovement.Move(moveCell, direction);
+            _playerMovement.Moved += OnPlayerMoved;
         }
     }
 }

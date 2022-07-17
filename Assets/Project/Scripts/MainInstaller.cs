@@ -29,7 +29,7 @@ namespace Project.Scripts
             
             Container.Bind<UICubicSlotContainer>().FromInstance(_uiCubicSlotContainer).AsSingle();
             
-            Container.Bind<CellsHandler>().AsSingle();
+            Container.Bind<DeathFinishHandler>().AsSingle();
 
             Container.Bind<LevelDeathService>().FromInstance(_levelDeathService).AsSingle();
             Container.Bind<LevelFinishService>().FromInstance(_levelFinishService).AsSingle();

@@ -10,16 +10,19 @@ namespace Project.Scripts
     
         private readonly PlayerFacade _playerFacade;
         private readonly LevelInfoService _levelInfoService;
+        private SoundPlayer _soundPlayer;
 
-        public TeleportMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService)
+        public TeleportMovement(PlayerFacade playerFacade, LevelInfoService levelInfoService, SoundPlayer soundPlayer)
         {
+            _soundPlayer = soundPlayer;
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
         }
 
         public async void Move(Cell cellToMove, Vector2 direction)
         {
-            Debug.Log("Tp");
+            _soundPlayer.PlayTeleportSound();
+
             var movePos = cellToMove.Pivot.position + (Vector3.up * (_playerFacade.Transform.localScale.x / 2));
 
             _playerFacade.Transform.position = movePos;
