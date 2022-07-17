@@ -17,6 +17,8 @@ public class CubeRotator : MonoBehaviour
 
     private bool _isDragging;
 
+    public bool IsDragging => _isDragging;
+
     public void OnMouseOver()
     {
         if (Input.GetMouseButton(1))
@@ -27,7 +29,7 @@ public class CubeRotator : MonoBehaviour
 
     private void Update()
     {
-        if (_isDragging)
+        if (IsDragging)
         {
             HandleDrag();
             if (!Input.GetMouseButton(1))

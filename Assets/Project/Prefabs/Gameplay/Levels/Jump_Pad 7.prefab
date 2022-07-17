@@ -101,7 +101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9121719324864339710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -297,6 +297,11 @@ PrefabInstance:
       value: JumpingCell Variant (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1635401431937069827, guid: 13cff79b77127de4cb2067bd8c76a207,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248458100961144960, guid: 13cff79b77127de4cb2067bd8c76a207,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2869,6 +2874,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3248458100961144960, guid: 13cff79b77127de4cb2067bd8c76a207,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6423917033942379201, guid: 13cff79b77127de4cb2067bd8c76a207,
         type: 3}
       propertyPath: m_IsActive
@@ -4363,6 +4373,11 @@ PrefabInstance:
       value: JumpingCell Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1635401431937069827, guid: 13cff79b77127de4cb2067bd8c76a207,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248458100961144960, guid: 13cff79b77127de4cb2067bd8c76a207,
         type: 3}
       propertyPath: m_IsActive
       value: 0
