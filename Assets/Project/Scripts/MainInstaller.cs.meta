@@ -3,7 +3,13 @@ guid: 5e707c498df2448db7c460729894529b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _levelsContainer: {fileID: 11400000, guid: ac3f3550421957545803cd42c27ae083, type: 2}
+  - _stickerPrefabContainer: {instanceID: 0}
+  - _player: {instanceID: 0}
+  - _staticData: {fileID: 11400000, guid: 6a5cf9fd6829bf9468d062fb447e81dd, type: 2}
+  - _curvesData: {fileID: 11400000, guid: d476084d7d83d434da8786f01e970329, type: 2}
+  - _levelNameText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
