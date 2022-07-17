@@ -14,7 +14,7 @@ namespace Project.Scripts
 
         private readonly PlayerFacade _playerFacade;
         private readonly StaticData _staticData;
-
+        public Cell CurrentFinishCell => _currentLevel.FinishCell;
 
         public LevelInfoService(PlayerFacade playerFacade, StaticData staticData)
         {
@@ -24,6 +24,7 @@ namespace Project.Scripts
 
         public void OnLevelSpawned(Level level)
         {
+            _currentLevel = level;
             foreach (Cell currentCell in level.Cells)
             {
                 var overlapSphere =

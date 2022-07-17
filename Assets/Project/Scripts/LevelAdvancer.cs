@@ -8,6 +8,7 @@ namespace Project.Scripts
         private readonly LevelSpawner _levelSpawner;
         private readonly SessionObserver _sessionObserver;
         private readonly PlayerFacade _playerFacade;
+        public Level CurrentLevel => _levelSpawner.GetCurrentLevel();
 
         public LevelAdvancer(LevelSpawner levelSpawner, SessionObserver sessionObserver, PlayerFacade playerFacade)
         {

@@ -10,6 +10,7 @@ public class StickersVisualizer : MonoBehaviour
     {
         if (sticker == null) return null;
         var clone = Instantiate(sticker, root);
+        clone.gameObject.layer = root.gameObject.layer;
 
         OrientationService.SetOrientationFromSide(side, clone.transform);
 
