@@ -17,7 +17,7 @@ namespace Project.Scripts
         public Cell StartCell => _startCell;
         public Cell FinishCell => _finishCell;
 
-        public event Action<Level> FinishCellMoved;
+        public Action<Level> FinishCellMoved;
 
         public Cell[] Cells => _cells;
 

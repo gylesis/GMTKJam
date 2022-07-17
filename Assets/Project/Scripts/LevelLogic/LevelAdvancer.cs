@@ -11,10 +11,14 @@ namespace Project.Scripts
         private readonly SessionObserver _sessionObserver;
         private readonly PlayerFacade _playerFacade;
         private LevelNameText _levelNameText;
+        private LevelFinishService _levelFinishService;
+        private PlayerCubicSlotsBuilder _playerCubicSlotsBuilder;
         public Level CurrentLevel => _levelSpawner.GetCurrentLevel();
 
-        public LevelAdvancer(LevelSpawner levelSpawner, SessionObserver sessionObserver, PlayerFacade playerFacade, LevelNameText levelNameText)
+        public LevelAdvancer(LevelSpawner levelSpawner, SessionObserver sessionObserver, PlayerFacade playerFacade,
+            LevelNameText levelNameText, PlayerCubicSlotsBuilder playerCubicSlotsBuilder)
         {
+            _playerCubicSlotsBuilder = playerCubicSlotsBuilder;
             _levelNameText = levelNameText;
             _playerFacade = playerFacade;
             _sessionObserver = sessionObserver;
@@ -31,13 +35,21 @@ namespace Project.Scripts
             SetLevel(_sessionObserver.Level);
         }
 
-        private bool SetLevel(int levelId)
+        public void SkipLevel()
+        {
+            GoNextLevel();
+        }
+        
+        private void SetLevel(int levelId)
         {
             Level level = _levelSpawner.LoadLevelById(levelId);
             level.FinishCellMoved += OnFinishCellMoved;
-            _playerFacade.SpawnPlayer();
 
+            _playerFacade.SpawnPlayer();
+            _playerFacade.ResetPlayer();
+            
             level.PlacePlayer(_playerFacade.Transform);
+            
             _playerFacade.ShowPlayer();
 
             if (level.LevelTitle == String.Empty)
@@ -50,8 +62,8 @@ namespace Project.Scripts
             }
 
             DOVirtual.DelayedCall(4, () => _levelNameText.HideText());
-            
-            return true;
+
+            _playerCubicSlotsBuilder.ClearPrevious();
         }
 
         public void GoNextLevel()
@@ -66,20 +78,22 @@ namespace Project.Scripts
 
             _sessionObserver.SetLevel(nextLevel);
 
+            SetLevel(nextLevel);
         }
 
         private async void OnFinishCellMoved(Level level)
         {
+           // GoNextLevel();
+            
             level.FinishCellMoved -= OnFinishCellMoved;
 
-            _sessionObserver.SetLevel(_sessionObserver.Level + 1);
+            //_sessionObserver.SetLevel(_sessionObserver.Level + 1);
 
-            Debug.Log("processed");
+           // Debug.Log("processed");
 
-            await Task.Delay(2000);
+            //await Task.Delay(2000);
 
-            SetLevel(_sessionObserver.Level);
+           // SetLevel(_sessionObserver.Level);
         }
-
     }
 }

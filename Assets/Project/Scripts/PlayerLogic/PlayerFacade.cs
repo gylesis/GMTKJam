@@ -14,6 +14,11 @@ namespace Project.Scripts
             _playerSpawner = playerSpawner;
             
         }
+
+        public void ResetPlayer()
+        {
+            Transform.rotation = new Quaternion(0,0,0,1);
+        }
         
         public void SpawnPlayer()
         {

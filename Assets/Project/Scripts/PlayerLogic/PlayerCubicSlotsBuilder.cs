@@ -60,7 +60,7 @@ namespace Project.Scripts
             _facade.SetPlayerSlots(_slots.ToArray());
         }
 
-        private void ClearPrevious()
+        public void ClearPrevious()
         {
             foreach (var slot in _slots)
             {

@@ -1,0 +1,69 @@
+﻿using DG.Tweening;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
+
+namespace Project.Scripts
+{
+    public class LevelFinishService : MonoBehaviour
+    {
+        [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _continueButton;
+        [SerializeField] private TMP_Text _congratulationSign;
+
+        [SerializeField] private CanvasGroup _canvasGroup;  
+        
+        private LevelAdvancer _levelAdvancer;
+
+        [Inject]
+        private void Init(LevelAdvancer levelAdvancer)
+        {
+            _levelAdvancer = levelAdvancer;
+        }
+
+        public void Finish()
+        {
+           
+            Show();
+        }
+
+        public void Show()
+        {
+            _congratulationSign.text = "Level cleared";
+            
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
+            _canvasGroup.DOFade(1, 1);
+
+            _restartButton.onClick.AddListener((OnRestartButtonClicked));
+            _continueButton.onClick.AddListener((OnContinueButtonClicked));
+        }
+
+        public void Hide()
+        {
+            _canvasGroup.alpha = 0;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+        }
+        
+        private void OnContinueButtonClicked()
+        {
+            _levelAdvancer.GoNextLevel();
+            
+            Hide();
+        }
+
+        private void OnRestartButtonClicked()
+        {
+            _levelAdvancer.ResetLevel();
+            Hide();
+        }
+
+        private void OnDestroy()
+        {
+            _restartButton.onClick.RemoveAllListeners();
+            _continueButton.onClick.RemoveAllListeners();
+        }
+    }
+}

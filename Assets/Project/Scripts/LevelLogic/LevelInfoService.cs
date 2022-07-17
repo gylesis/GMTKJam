@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace Project.Scripts
         private readonly StaticData _staticData;
         public Cell CurrentFinishCell => _currentLevel.FinishCell;
 
+        public Level CurrentLevel => _currentLevel;
+
         public LevelInfoService(PlayerFacade playerFacade, StaticData staticData)
         {
             _staticData = staticData;
@@ -24,7 +27,10 @@ namespace Project.Scripts
 
         public void OnLevelSpawned(Level level)
         {
+            _positions.Clear();
+            
             _currentLevel = level;
+            
             foreach (Cell currentCell in level.Cells)
             {
                 var overlapSphere =
@@ -55,6 +61,7 @@ namespace Project.Scripts
 
                 _neighbours.Add(cellHashCode, neighbours);
             }
+            
         }
 
         public Cell GetCellByDirection(Vector2 direction)
@@ -64,6 +71,9 @@ namespace Project.Scripts
             pos.y += direction.y;
             pos.x += direction.x;
 
+            pos.y = Mathf.Round(pos.y);
+            pos.x = Mathf.Round(pos.x);
+            
             if (_positions.ContainsKey(pos) == false)
                 return null;
             

@@ -8,8 +8,6 @@ namespace Project.Scripts
 {
     public class MainInstaller : MonoInstaller
     {
-        [InjectOptional, SerializeField] private int _initialSceneId;
-
         [InjectOptional, SerializeField] private LevelsContainer _levelsContainer;
         [SerializeField] private StickerPrefabContainer _stickerPrefabContainer;
 
@@ -17,13 +15,22 @@ namespace Project.Scripts
         [SerializeField] private StaticData _staticData;
         [SerializeField] private AnimationCurvesData _curvesData;
         [SerializeField] private LevelNameText _levelNameText;
+
+        [SerializeField] private LevelFinishService _levelFinishService;
+        [SerializeField] private LevelDeathService _levelDeathService;
+
         public override void InstallBindings()
         {
             //Application.targetFrameRate = 60;
 
+            Container.Bind<CellsHandler>().AsSingle();
+
+            Container.Bind<LevelDeathService>().FromInstance(_levelDeathService).AsSingle();
+            Container.Bind<LevelFinishService>().FromInstance(_levelFinishService).AsSingle();
+
             Container.Bind<LevelNameText>().FromInstance(_levelNameText).AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerDestinationTracker>().AsSingle();
-            
+
             Container.Bind<StaticData>().FromInstance(_staticData).AsSingle();
 
             Container.BindFactory<Player, PlayerFactory>().FromComponentInNewPrefab(_player).AsSingle();
@@ -38,7 +45,6 @@ namespace Project.Scripts
             Container.BindInterfacesAndSelfTo<LevelSpawner>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ButtonSpawner>().AsSingle();
 
-            Container.BindInstance(_initialSceneId).WhenInjectedInto<LevelSpawner>();
             Container.Bind<LevelAdvancer>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<PlayerMovementService>().AsSingle();
@@ -59,7 +65,6 @@ namespace Project.Scripts
             Container.Bind<PlayerCubicSlotsBuilder>().AsSingle();
             Container.BindInstance(_curvesData);
             Container.Bind<SelectionManager>().FromComponentInHierarchy().AsSingle();
-
         }
     }
 }

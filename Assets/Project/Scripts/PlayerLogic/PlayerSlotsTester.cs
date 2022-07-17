@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using Project.Scripts;
 using UnityEngine;
 using Zenject;
 
 public class PlayerSlotsTester : MonoBehaviour
 {
-
     private PlayerCubicSlotsBuilder _slotsBuilder;
     private UICubicSlotContainer _slotContainer;
 

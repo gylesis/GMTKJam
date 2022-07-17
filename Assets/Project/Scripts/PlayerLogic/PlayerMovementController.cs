@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Project.Scripts
 {
@@ -11,93 +10,73 @@ namespace Project.Scripts
         private readonly PlayerMovementContainer _playerMovementContainer;
         private readonly PlayerDestinationTracker _playerDestinationTracker;
 
-        public event Action MovedOnFinish;
-        //private readonly LevelAdvancer _levelAdvancer;
-
-
         private bool _isMoving;
         private IPlayerMovement _playerMovement;
         private Cell _currentCell;
+        private CellsHandler _cellsHandler;
 
         public PlayerMovementController(PlayerFacade playerFacade, PlayerMovementContainer playerMovementContainer,
-            LevelInfoService levelInfoService, PlayerDestinationTracker playerDestinationTracker)
+            LevelInfoService levelInfoService, PlayerDestinationTracker playerDestinationTracker,
+            CellsHandler cellsHandler)
         {
+            _cellsHandler = cellsHandler;
             _playerDestinationTracker = playerDestinationTracker;
             _playerMovementContainer = playerMovementContainer;
             _levelInfoService = levelInfoService;
             _playerFacade = playerFacade;
-
         }
-
 
         public void Move()
         {
             if (_isMoving) return;
-            
-            PlayerCubicSlot currentSticker = _playerFacade.GetCurrentSticker();
 
-            //Debug.Log(currentSticker ,currentSticker);
+            PlayerCubicSlot currentSticker = _playerFacade.GetCurrentSticker();
+            IPlayerMovement playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
+
             if (currentSticker == null)
             {
-                Debug.Log("no current");
+                Debug.Log("no sticker");
                 return;
-
-                //_levelAdvancer.ResetLevel();
             }
 
             PlayerCubicSlotData playerCubicSlot = currentSticker.SlotData;
-            //IPlayerMovement playerMovement = playerCubicSlot.Movement;
+            MoveSide moveSide = playerCubicSlot.MoveSide;
+            
+            Vector2 moveDirection;
 
-            IPlayerMovement playerMovement = _playerMovementContainer.GetMovement<FourDirectionMovement>();
-
-            if (playerMovement is FourDirectionMovement)
+            switch (moveSide)
             {
-                MoveSide moveSide = playerCubicSlot.MoveSide;
-
-                Vector2 moveDirection;
-
-                switch (moveSide)
-                {
-                    case MoveSide.Left:
-                        moveDirection = Vector2.left;
-                        break;
-                    case MoveSide.Right:
-                        moveDirection = Vector2.right;
-                        break;
-                    case MoveSide.Forward:
-                        moveDirection = Vector2.up;
-                        break;
-                    case MoveSide.Back:
-                        moveDirection = Vector2.down;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                Cell cell = _levelInfoService.GetCellByDirection(moveDirection);
-
-                if(cell == null)
-                {
-                    //_levelAdvancer.ResetLevel();
-                    return;
-                }
-
-                
-                
-                _playerMovement = playerMovement;
-                _playerMovement.Moved += OnPlayerMoved;
-
-                playerMovement.Move(cell, moveDirection);
-            }
-            else if (playerMovement is JumpMovement)
-            {
-                var cell = _currentCell as JumpingCell;
-
-                Cell jumpCell = cell.JumpCell;
-
-                //playerMovement.Move(jumpCell);
+                case MoveSide.Left:
+                    moveDirection = Vector2.left;
+                    break;
+                case MoveSide.Right:
+                    moveDirection = Vector2.right;
+                    break;
+                case MoveSide.Forward:
+                    moveDirection = Vector2.up;
+                    break;
+                case MoveSide.Back:
+                    moveDirection = Vector2.down;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
+            Cell moveCell = _levelInfoService.GetCellByDirection(moveDirection);
+
+            Debug.Log($"Move direction {moveDirection}, moveside {moveSide}, currentSticker {currentSticker}",
+                currentSticker);
+
+            if (moveCell == null)
+            {
+                _cellsHandler.OnDeath();
+                return;
+            }
+
+            playerMovement.Moved += OnPlayerMoved;
+            playerMovement.Move(moveCell, moveDirection);
+
+            _playerMovement = playerMovement;
             _isMoving = true;
             _playerDestinationTracker.StartTracking();
             _playerDestinationTracker.CellChanged += OnPlayerCellChanged;
@@ -113,7 +92,7 @@ namespace Project.Scripts
 
                 _playerMovement = playerMovement;
 
-               // _playerMovement.Move(jumpingCell.JumpCell);
+                // _playerMovement.Move(jumpingCell.JumpCell);
                 _playerMovement.Moved += OnPlayerMoved;
 
                 _playerMovement = playerMovement;
@@ -122,6 +101,7 @@ namespace Project.Scripts
 
         private void OnPlayerMoved(Cell cell)
         {
+            Debug.Log("Player moved");
             _playerDestinationTracker.StopTracking();
 
             _currentCell = cell;
@@ -135,12 +115,13 @@ namespace Project.Scripts
 
             if (cell is JumpingCell jumpingCell)
             {
+                Debug.Log("jump");
                 Move();
             }
 
             if (cell == _levelInfoService.CurrentFinishCell)
             {
-                Debug.Log("WIN!");
+                _cellsHandler.OnFinishCell();
             }
 
             //PlayerCubicSlot playerCubicSlot = _playerFacade.GetCurrentSticker();
