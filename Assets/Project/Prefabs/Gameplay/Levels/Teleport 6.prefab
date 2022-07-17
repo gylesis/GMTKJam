@@ -202,7 +202,7 @@ MonoBehaviour:
   _requiredCellNumber: 6
   _startCell: {fileID: 2492020809114246269}
   _finishCell: {fileID: 7525413044845242581}
-  _levelTitle: 
+  _levelTitle: Unforseen consequences
 --- !u!1001 &7476161212593686
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 9121719324864339708}
   - component: {fileID: 9121719324864339711}
   m_Layer: 0
-  m_Name: Teleport 4 (Now you're thinking with portals)
+  m_Name: Teleport 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +260,7 @@ MonoBehaviour:
   _requiredCellNumber: 5
   _startCell: {fileID: 7870861275280229026}
   _finishCell: {fileID: 8859389493066852260}
-  _levelTitle: Unforseen Consequences
+  _levelTitle: Now you're thinking with portals
 --- !u!1001 &11333940231072684
 PrefabInstance:
   m_ObjectHideFlags: 0

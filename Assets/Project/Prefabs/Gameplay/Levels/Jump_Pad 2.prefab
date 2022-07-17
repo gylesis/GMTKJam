@@ -129,10 +129,10 @@ MonoBehaviour:
   - {fileID: 6019235991094370349}
   - {fileID: 354811561433347095}
   - {fileID: 1579383640883545942}
-  _requiredCellNumber: 0
+  _requiredCellNumber: 4
   _startCell: {fileID: 7870861275280229026}
   _finishCell: {fileID: 248447326612814043}
-  _levelTitle: 
+  _levelTitle: Dice flip
 --- !u!1001 &53778607136482260
 PrefabInstance:
   m_ObjectHideFlags: 0

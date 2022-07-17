@@ -91,10 +91,10 @@ MonoBehaviour:
   - {fileID: 4406722339706932653}
   - {fileID: 7406014497068169697}
   - {fileID: 8507745646133630191}
-  _requiredCellNumber: 0
+  _requiredCellNumber: 5
   _startCell: {fileID: 1886843377306224243}
   _finishCell: {fileID: 8507745646133630191}
-  _levelTitle: 
+  _levelTitle: Roll out
 --- !u!1001 &53778607136482260
 PrefabInstance:
   m_ObjectHideFlags: 0

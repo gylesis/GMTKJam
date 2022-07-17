@@ -108,7 +108,7 @@ MonoBehaviour:
   _requiredCellNumber: 5
   _startCell: {fileID: 7870861275280229026}
   _finishCell: {fileID: 248447326612814043}
-  _levelTitle: 
+  _levelTitle: U-turn
 --- !u!1001 &80777411947405913
 PrefabInstance:
   m_ObjectHideFlags: 0

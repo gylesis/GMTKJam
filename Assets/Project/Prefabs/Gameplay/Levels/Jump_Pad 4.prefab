@@ -217,10 +217,10 @@ MonoBehaviour:
   - {fileID: 5278983643388400429}
   - {fileID: 8391135196560632796}
   - {fileID: 7133160968208548556}
-  _requiredCellNumber: 0
+  _requiredCellNumber: 4
   _startCell: {fileID: 4487769397432740526}
   _finishCell: {fileID: 6107281225956079801}
-  _levelTitle: 
+  _levelTitle: Criss-cross
 --- !u!1001 &53778607136482260
 PrefabInstance:
   m_ObjectHideFlags: 0

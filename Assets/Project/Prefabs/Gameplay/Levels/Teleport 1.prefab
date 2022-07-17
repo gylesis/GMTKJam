@@ -137,7 +137,7 @@ MonoBehaviour:
   - {fileID: 4726420143639437604}
   - {fileID: 2840334914749113577}
   - {fileID: 1639208373195606881}
-  _requiredCellNumber: 0
+  _requiredCellNumber: 2
   _startCell: {fileID: 7870861275280229026}
   _finishCell: {fileID: 248447326612814043}
   _levelTitle: The cake is a lie

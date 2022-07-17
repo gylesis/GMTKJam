@@ -187,10 +187,10 @@ MonoBehaviour:
   - {fileID: 1579383640883545942}
   - {fileID: 5278983643388400429}
   - {fileID: 8391135196560632796}
-  _requiredCellNumber: 0
+  _requiredCellNumber: 5
   _startCell: {fileID: 3975651148305199706}
   _finishCell: {fileID: 2529727148451536026}
-  _levelTitle: 
+  _levelTitle: Bow and arrow
 --- !u!1001 &53778607136482260
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -127,10 +127,10 @@ MonoBehaviour:
   - {fileID: 8391135196560632796}
   - {fileID: 6055167833962557129}
   - {fileID: 4137365147924290067}
-  _requiredCellNumber: 0
+  _requiredCellNumber: 3
   _startCell: {fileID: 3975651148305199706}
   _finishCell: {fileID: 515895092779201410}
-  _levelTitle: 
+  _levelTitle: Stick the landing
 --- !u!1001 &53778607136482260
 PrefabInstance:
   m_ObjectHideFlags: 0
