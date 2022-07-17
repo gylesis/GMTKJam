@@ -28,13 +28,13 @@ namespace Project.Scripts
             Show();
         }
 
-        public void Show()
+        public async void Show()
         {
             _congratulationSign.text = "Level cleared";
-            
+
+            await _canvasGroup.DOFade(1, 1).AsyncWaitForCompletion();
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
-            _canvasGroup.DOFade(1, 1);
 
             _restartButton.onClick.AddListener((OnRestartButtonClicked));
             _continueButton.onClick.AddListener((OnContinueButtonClicked));
