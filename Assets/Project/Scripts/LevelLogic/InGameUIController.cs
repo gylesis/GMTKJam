@@ -30,6 +30,7 @@ namespace Project.Scripts
         public void SetText(string str)
         {
             _text.text = str;
+            ShowText();
         }
 
         public async void HideText()

@@ -59,7 +59,7 @@ namespace Project.Scripts
                 var nextPos = new Vector3(nextX, baseY + arc, transform.position.z);
 
                 // Rotate to face the next position, and then move there
-                transform.rotation = LookAt2D(nextPos - transform.position);
+                //transform.rotation = LookAt2D(nextPos - transform.position);
                 transform.position = nextPos;
 
                 // Do something when we reach the target
