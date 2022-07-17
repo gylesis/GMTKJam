@@ -65,10 +65,10 @@ namespace Project.Scripts
             
 
             Vector3 playerEulers = _playerFacade.Transform.rotation.eulerAngles;
-            playerEulers += movingEulersAngle;
+            playerEulers = movingEulersAngle;
             
             
-            _playerFacade.Transform.DOLocalRotate(playerEulers, _animationCurves.CubeMovementDuration, RotateMode.FastBeyond360).SetEase(_animationCurves.CubeRotationCurve);
+            _playerFacade.Transform.DORotate(playerEulers, _animationCurves.CubeMovementDuration, RotateMode.WorldAxisAdd).SetEase(_animationCurves.CubeRotationCurve);
             
             return;
             if (movingEulersAngle.z != 0)
