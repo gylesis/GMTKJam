@@ -1,6 +1,8 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
@@ -10,6 +12,7 @@ namespace Project.Scripts
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Button _resetCubicSlotsButton;
+        [SerializeField] private Button _goMenuButton;
         
         private UICubicSlotContainer _uiCubicSlotContainer;
         private LevelAdvancer _levelAdvancer;
@@ -20,6 +23,12 @@ namespace Project.Scripts
             _uiCubicSlotContainer = uiCubicSlotContainer;
             
             _resetCubicSlotsButton.onClick.AddListener((OnResetUICubicClicked));
+            _goMenuButton.onClick.AddListener((Restart));
+        }
+
+        private void Restart()
+        {
+            SceneManager.LoadScene(0);
         }
 
         private void OnResetUICubicClicked()
@@ -44,6 +53,12 @@ namespace Project.Scripts
         {
             _text.enabled = true;
             _text.DOFade(1, 1);
+        }
+
+        private void OnDestroy()
+        {
+            _resetCubicSlotsButton.onClick.RemoveAllListeners();
+            _goMenuButton.onClick.RemoveAllListeners();
         }
     }
 }
