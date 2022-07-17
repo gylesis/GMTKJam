@@ -72,7 +72,7 @@ namespace Project.Scripts
             playerEulers = movingEulersAngle;
             
             
-            _playerFacade.Transform.DORotate(playerEulers, _animationCurves.CubeMovementDuration, RotateMode.LocalAxisAdd).SetEase(_animationCurves.CubeRotationCurve);
+            _playerFacade.Transform.DORotate(playerEulers, _animationCurves.CubeMovementDuration, RotateMode.WorldAxisAdd).SetEase(_animationCurves.CubeRotationCurve);
             
             return;
             if (movingEulersAngle.z != 0)
