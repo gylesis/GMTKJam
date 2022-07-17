@@ -50,6 +50,10 @@ public class UICubicSlotContainer : MonoBehaviour
                 slot.Sticker = _stickersVisualizer.Create(_selectedStickerObserver.CurrentSticker, side, transform);
             }
         }
+        else
+        {
+            
+        }
     }
 
     private int CountBusySlots()
@@ -73,9 +77,13 @@ public class UICubicSlotContainer : MonoBehaviour
         {
             if (slot.IsEmpty == false)
             {
-                _stickersVisualizer.DestroySticker(slot.Sticker.gameObject);
+                DestroySticker(slot);
             }
         }
-        
+    }
+
+    public void DestroySticker(PlayerSlotUI slot)
+    {
+        _stickersVisualizer.DestroySticker(slot.Sticker.gameObject);
     }
 }
