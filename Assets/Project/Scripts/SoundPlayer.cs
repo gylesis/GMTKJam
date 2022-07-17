@@ -28,9 +28,9 @@ namespace Project.Scripts
         private void PlayMainTheme()
         {
             _crowd.clip = _crowSound;
-          //  _main.clip = _mainTheme;
+            _main.clip = _mainTheme;
 
-          //  _main.Play();
+            _main.Play();
             _crowd.Play();
         }
 
@@ -64,14 +64,14 @@ namespace Project.Scripts
 
         public void PlayWinSound()
         {
-           // _second.clip = _winSound;
-           // _second.Play();
+            _second.clip = _winSound;
+            _second.Play();
         }
 
         public void PlayLoseSound()
         {
-          //  _second.clip = _loseSound;
-          //  _second.Play();
+            _second.clip = _loseSound;
+            _second.Play();
         }
     }
 }

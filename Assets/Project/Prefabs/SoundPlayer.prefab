@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a181f09210b846ea81c70dac939a98cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainTheme: {fileID: 0}
+  _mainTheme: {fileID: 8300000, guid: 3077ea2f92345b542839ae819cae44d2, type: 3}
   _crowSound: {fileID: 8300000, guid: 14e81726c51c88740868650bea85e76e, type: 3}
   _jumpSound: {fileID: 8300000, guid: 7d46173f69af29b4890882df4fbdc290, type: 3}
   _moveSounds:
@@ -184,8 +184,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2ba34fde69b2e914a85f5a2809903128, type: 3}
   - {fileID: 8300000, guid: 2b0add42e30911442ae7fcb0ac197185, type: 3}
   _teleportSound: {fileID: 8300000, guid: 66c5676c56fcd5b45891756c32f14b5d, type: 3}
-  _winSound: {fileID: 0}
-  _loseSound: {fileID: 0}
+  _winSound: {fileID: 8300000, guid: cbd5591c26f653e43a9006808adb4b7c, type: 3}
+  _loseSound: {fileID: 8300000, guid: 77408c289f4784f4ab5228f45537cd0c, type: 3}
   _stickerSounds:
   - {fileID: 8300000, guid: 19e184ec0472a6242be62cae796bbf42, type: 3}
   - {fileID: 8300000, guid: 410ac6cdcebe2124295472d68d5af892, type: 3}

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using DG.Tweening;
 using Project.Scripts;
 using UnityEngine;
 using Zenject;
@@ -28,20 +30,14 @@ public class UICubicSlotContainer : MonoBehaviour
         _stickersVisualizer = stickersVisualizer;
     }
 
-    public void SetSlot(CubeSide side)
+    public async void SetSlot(CubeSide side)
     {
         Level currentLevel = _levelInfoService.CurrentLevel;
 
-        var busySlots = CountBusySlots();
-
-        /*if(busySlots >= currentLevel.MaxCellNumber)
-            return;*/
         var slot = _slots.Find(s => s.CubeSide == side);
-
+        
         if (_selectedStickerObserver.CurrentSticker != null)
         {
-           
-
             if (slot != null)
             {
                 if (slot.Sticker != null)
@@ -49,7 +45,6 @@ public class UICubicSlotContainer : MonoBehaviour
                     _stickersVisualizer.DestroySticker(slot.Sticker.gameObject);
                 }
 
-                _soundPlayer.PlayStickerSound();
                 slot.Sticker = _stickersVisualizer.Create(_selectedStickerObserver.CurrentSticker, side, transform);
             }
         }
@@ -57,6 +52,9 @@ public class UICubicSlotContainer : MonoBehaviour
         {
             DestroySticker(slot);
         }
+        
+        await Task.Delay(100);
+        _soundPlayer.PlayStickerSound();
     }
 
     private int CountBusySlots()
